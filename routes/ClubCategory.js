@@ -93,7 +93,7 @@ const ClubCategory = (props) => {
       const json = await response.json();
       console.log("추가된 북마크 pk: " + JSON.stringify(json));
 
-      // 페이지 새로고침 추가 필요
+      // 페이지 새로고침 추가 필요D
     } catch (error) {
       console.log("error in get club list: " + error);
     }
