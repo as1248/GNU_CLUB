@@ -11,16 +11,14 @@ const List = styled.View`
   display: flex;
   justify-content: center;
   border: 3px;
+  border-radius: 10px;
   border-color: #9a9a9a;
   margin: 2% 10%;
-`;
-
-const CategoryContainer = styled.View`
   background-color: #ced1ce;
   height: 50px;
-  justify-content: center;
 `;
-const Category = styled.Text`
+
+const CategoryText = styled.Text`
   margin-left: 5%;
   font-size: 25px;
   color: #4b4b4b;
@@ -66,8 +64,7 @@ const ClubList = ({ navigation }) => {
       {categoryList.map((category, key) => {
         return (
           <List key={key}>
-            <CategoryContainer>
-              <Category
+              <CategoryText
                 onPress={() =>
                   navigation.navigate("ClubCategory", {
                     categoryName: category.categoryName,
@@ -76,8 +73,7 @@ const ClubList = ({ navigation }) => {
                 }
               >
                 {category.categoryName} 분야
-              </Category>
-            </CategoryContainer>
+              </CategoryText>
           </List>
         );
       })}

@@ -5,18 +5,21 @@ import { FontAwesome } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { UnBookmarked, Bookmarked } from "../components/Icon";
 
-const Container = styled.ScrollView`
+const Screen = styled.ScrollView`
   flex: 1;
   padding-top: 20%;
   padding-left: 10%;
   padding-right: 10%;
 `;
-const CategoryNameContainer = styled.View`
-  width: 100%;
+
+const Container = styled.ScrollView`
   background-color: #9a9a9a;
-  align-items: center;
+  border-radius: 10px;
+  align-item: center;
 `;
+
 const CategoryName = styled.Text`
+  text-align: center;
   font-size: 30px;
 `;
 
@@ -102,55 +105,55 @@ const ClubCategory = (props) => {
   };
 
   return (
-    <Container>
-      <CategoryNameContainer>
+    <Screen>
+      <Container>
         <CategoryName>{props.route.params.categoryName} 분야 </CategoryName>
-      </CategoryNameContainer>
-      {clubList.map((club, key) => {
-        return (
-          <List key={key}>
-            <ClubName onPress={() => nav("Club", club.clubPk)}>
-              <ClubNameText>{club.clubName}</ClubNameText>
-            </ClubName>
-            <TouchableOpacity onPress={() => clickBookMark(club.clubPk)}>
-              {checkFeather(club.clubPk)}
-            </TouchableOpacity>
-          </List>
-        );
-      })}
-      <List>
-        <ClubName>
+        {clubList.map((club, key) => {
+          return (
+            <List key={key}>
+              <ClubName onPress={() => nav("Club", club.clubPk)}>
+                <ClubNameText>{club.clubName}</ClubNameText>
+              </ClubName>
+              <TouchableOpacity onPress={() => clickBookMark(club.clubPk)}>
+                {checkFeather(club.clubPk)}
+              </TouchableOpacity>
+            </List>
+          );
+        })}
+        <List>
+          <ClubName>
             <ClubNameText>더미데이터1</ClubNameText>
-        </ClubName>
-        <Bookmark>
-          <UnBookmarked />
-        </Bookmark>
-      </List>
-      <List>
-        <ClubName>
+          </ClubName>
+          <Bookmark>
+            <UnBookmarked />
+          </Bookmark>
+        </List>
+        <List>
+          <ClubName>
             <ClubNameText>더미데이터2</ClubNameText>
-        </ClubName>
-        <Bookmark>
-          <UnBookmarked />
-        </Bookmark>
-      </List>
-      <List>
-        <ClubName>
+          </ClubName>
+          <Bookmark>
+            <UnBookmarked />
+          </Bookmark>
+        </List>
+        <List>
+          <ClubName>
             <ClubNameText>더미데이터3</ClubNameText>
-        </ClubName>
-        <Bookmark>
-          <UnBookmarked />
-        </Bookmark>
-      </List>
-      <List>
-        <ClubName>
+          </ClubName>
+          <Bookmark>
+            <UnBookmarked />
+          </Bookmark>
+        </List>
+        <List>
+          <ClubName>
             <ClubNameText>더미데이터4</ClubNameText>
-        </ClubName>
-        <Bookmark>
-          <UnBookmarked />
-        </Bookmark>
-      </List>
-    </Container>
+          </ClubName>
+          <Bookmark>
+            <UnBookmarked />
+          </Bookmark>
+        </List>
+      </Container>
+    </Screen>
   );
 };
 
