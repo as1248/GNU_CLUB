@@ -6,9 +6,9 @@ import { CheckedBox, UncheckedBox } from "../components/Icon";
 
 const Container = styled.ScrollView`
   display: flex;
-  fles-direction: row;
+  flex-direction: row;
   flex: 1;
-  alignitems: center;
+  align-items: center;
   padding: 15% 5%;
 `;
 
@@ -23,13 +23,13 @@ const VContent = styled.View`
   flex-direction: row;
   margin: 5% 0;
   justify-content: space-evenly;
-  align-item: center;
+  align-items: center;
   flex-wrap: wrap;
 `;
 
 const VCenter = styled.View`
   justify-content: center;
-  align-item: center;
+  align-items: center;
   flex: 1;
 `;
 const ClubInfo = styled.View`
@@ -58,7 +58,6 @@ const Posting = styled.View`
   flex-direction: row;
   justify-content: space-evenly;
   margin: 0 0 5% 0;
-  border: ;
 `;
 
 const OnPressButton = styled.Button`
