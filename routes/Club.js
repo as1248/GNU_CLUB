@@ -26,7 +26,7 @@ const VContent = styled.View`
   flex-wrap: wrap;
   padding: 0 3%;
 `;
-
+// 괴도승훈 왓다감
 const VCenter = styled.View`
   justify-content: center;
   align-items: center;
