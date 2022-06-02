@@ -50,7 +50,7 @@ const BtnText = styled.Text`
     font-size: 15px;
 `;
 
-const Posting = (clubPk:any) => {
+const TimelinePosting = (clubPk:any) => {
     let title;
     let content;
     const [image, setImage] = useState();
@@ -71,7 +71,7 @@ const Posting = (clubPk:any) => {
             formData.append('dto', {'string': JSON.stringify({title, content}), type: 'application/json'});
             await axios({
                 method: 'post',
-                url: `http://15.165.169.129/api/club/${clubPk.route.params.clubPk}/bulletin_board/notice`,
+                url: `http://15.165.169.129/api/club/${clubPk.route.params.clubPk}/bulletin_board/timeline`,
                 data: formData,
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -122,4 +122,4 @@ const Posting = (clubPk:any) => {
     );
 };
 
-export default Posting;
+export default TimelinePosting;

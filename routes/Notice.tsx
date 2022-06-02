@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Image, View } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 import styled from 'styled-components/native';
 import axios from "axios";
 
@@ -69,12 +69,12 @@ const Notice = ({navigation, route}) => {
         <Main>
             <Header>
                 <GoBack onPress={() => navigation.goBack()}>&lt;</GoBack>
-                <Posting onPress={() => navigation.navigate('Posting',{clubPk: clubPk})}>+</Posting>
+                <Posting onPress={() => navigation.navigate('NoticePosting',{clubPk: clubPk})}>+</Posting>
             </Header>   
             <List>
                 {noticeList.reverse().map((notice:any,index:number)=>{
                     return(
-                    <Posted onPress={() => navigation.navigate('Watch',{noticePk: notice.noticePk, memberPk: member_pk})} key={index}>
+                    <Posted onPress={() => navigation.navigate('WatchNotice',{noticePk: notice.noticePk, memberPk: member_pk})} key={index}>
                         <Title>{notice.title}</Title>
                     </Posted>
                     );

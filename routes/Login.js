@@ -6,11 +6,10 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
 const Main = styled.View`
-  flowdirection : row;
   display: flex;
   align-items: flex-start;
   margin-top: 45%;
-  margin-left: 50;
+  margin-left: 25px;
 `;
 
 const Login = ({ navigation }) => {
@@ -32,16 +31,22 @@ const Login = ({ navigation }) => {
    }
    
     try {
-      const response = await fetch(`http://15.165.169.129/api/member/signIn`, {
-        method: "POST",
-        body: JSON.stringify({
-          signInId: id,
-          password: pw,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      var raw = JSON.stringify({
+        "signInId": id,
+        "password": pw
       });
+
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
+
+      const response = await fetch('http://15.165.169.129/api/member/signIn', requestOptions);
       const userData = await response.json();
       console.log("user Pk: " + JSON.stringify(userData));
 

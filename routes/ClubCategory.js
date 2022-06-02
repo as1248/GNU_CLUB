@@ -45,6 +45,8 @@ const ClubCategory = (props) => {
   const [userInfo, setUserInfo] = useState({
     bookmarks: []
   });
+
+  // 어떤 카테고리의 클럽들인지 props로 받아왔음
   const categoryPk = props.route.params.categoryPk;
 
   // 클럽 데이터 가져오기
@@ -54,41 +56,42 @@ const ClubCategory = (props) => {
         `http://15.165.169.129/api/category/${categoryPk}/clubs`
       );
       const json = await response.json();
-      console.log(JSON.stringify(json));
+      // console.log(JSON.stringify(json));
       setClubList(json.data);
     } catch (error) {
       console.log("error in get club list: " + error);
     }
+    // console.log(clubList);
   };
 
-  useEffect(() => {
-    getClubList();
-    getUserInfo();
-  }, []);
-
-  // 멤버의 즐겨찾기 한 동아리 출력
+  // 멤버의 즐겨찾기 한 동아리 받기
   const getUserInfo = async () => {
     try {
       const response = await fetch(
         `http://15.165.169.129/api/member/1/my_page`
       );
       const json = await response.json();
-      console.log(JSON.stringify(json));
+      // console.log(JSON.stringify(json));
       setUserInfo(json.data);
     } catch (error) {
       console.log("error in get user info: " + error);
     }
+    console.log(userInfo);
   };
+  
+  useEffect(() => {
+    getClubList();  // 클럽리스트 받아오기
+    getUserInfo();  // 즐겨찾기 여부 받아오기
+  }, []);
 
 
-  // 즐겨찾기 여부 처리
+  // 즐겨찾기 여부 처리, 아이콘 출력
   const checkFeather = (thisName) => {
     var isBook = false;
     userInfo.bookmarks.map((thisClub) => {
       if(thisClub.bookmarkName === thisName)
         isBook = true;
     })
-
     return isBook ? <Bookmarked /> : <UnBookmarked />
   };
 
@@ -96,14 +99,12 @@ const ClubCategory = (props) => {
   const clickBookMark = async (club_pk) => {
     try {
       const memberPk = await AsyncStorage.getItem("pk");
-      console.log(memberPk);
-      const response = await fetch(
+      await fetch(
         `http://15.165.169.129/api/member/${memberPk}/bookmark?club_pk=${club_pk}`,
         {
           method: "PUT",
         }
       );
-      const json = await response.json();
       getUserInfo();
     } catch (error) {
       console.log("error in click book mark: " + error);
@@ -117,7 +118,7 @@ const ClubCategory = (props) => {
 
   return (
     <Screen>
-      <Container >
+      <Container>
         <CategoryName>{props.route.params.categoryName} 분야</CategoryName>
         {clubList.map((club, key) => {
           return (

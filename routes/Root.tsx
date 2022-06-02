@@ -5,10 +5,12 @@ import ClubList from "./ClubList";
 import Club from "./Club";
 import Notice from "./Notice";
 import Timeline from "./Timeline";
-import Posting from "./Posting";
+import NoticePosting from "./NoticePosting";
+import TimelinePosting from "./TimelinePosting";
 import Login from "./Login";
 import EditInfo from "./EditInfo";
-import Watch from "./Watch";
+import WatchNotice from "./WatchNotice";
+import WatchTimeline from "./WatchTimeline";
 import ClubCategory from "./ClubCategory";
 import ManagerLogin from "./ManagerLogin ";
 
@@ -29,9 +31,11 @@ const Root = () => (
     <Stack.Screen name="Club" component={Club} />
     <Stack.Screen name="Notice" component={Notice} />
     <Stack.Screen name="Timeline" component={Timeline} />
-    <Stack.Screen name="Posting" component={Posting} />
+    <Stack.Screen name="NoticePosting" component={NoticePosting} />
+    <Stack.Screen name="TimelinePosting" component={TimelinePosting} />
     <Stack.Screen name="EditInfo" component={EditInfo} />
-    <Stack.Screen name="Watch" component={Watch} />
+    <Stack.Screen name="WatchNotice" component={WatchNotice} />
+    <Stack.Screen name="WatchTimeline" component={WatchTimeline} />
     <Stack.Screen name="ClubCategory" component={ClubCategory} />
     <Stack.Screen name="ManagerLogin" component={ManagerLogin} />
     

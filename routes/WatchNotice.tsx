@@ -9,14 +9,17 @@ const Title = styled.Text`
     margin-top: 15%;
     margin-left: 8%;
     font-size: 30px;
+    font-weight: 600;
 `;
 
 const Time = styled.Text`
     margin-left: 10%;
+    color: rgba(0,0,0,0.5);
 `;
 
 const Detail = styled.Text`
     margin: 10%;
+    font-size: 20px;
 `;
 
 const Counting = styled.View`
@@ -42,7 +45,7 @@ const CommentList = styled.View`
 const Comment = styled.View`
     display: flex;
     flex-direction: row;
-    border: 1px solid black;
+    border: 1px solid rgba(0,0,0,0.3);
     border-radius: 20px;
     margin-bottom: 10%;
     padding: 2%;
@@ -85,7 +88,7 @@ const Del = styled.Text`
     font-weight: 900;
 `
 
-const Watch = (noticePk:any) => {
+const WatchNotice = (noticePk:any) => {
     const [notice,setNotice] = useState<any>();
     const [loading,setLoading] = useState(true);
     const [like,setLike] = useState(false);
@@ -100,18 +103,17 @@ const Watch = (noticePk:any) => {
 
     const callApi = async() => {
         try{
-            const response = await axios.get(`http://15.165.169.129/api/club/notice/${noticePk.route.params.noticePk}?member_pk=1`);
+            const response = await axios.get(`http://15.165.169.129/api/club/notice/${noticePk.route.params.noticePk}?member_pk=${noticePk.route.params.memberPk}`);
             setNotice(response.data.data);
             loadLike(response);
             setLoading(false);
-            
             }catch(error){
                 console.log(error);
             };
     }
     const updateLike = async(blike:boolean) => {
         try{
-            await axios.put(`http://15.165.169.129/api/like/notice/${noticePk.route.params.noticePk}?member_pk=1`,{
+            await axios.put(`http://15.165.169.129/api/like/notice/${noticePk.route.params.noticePk}?member_pk=${noticePk.route.params.memberPk}`,{
                 data:{
                     blike: blike,
                     likeCount: notice.likeCount,
@@ -124,7 +126,7 @@ const Watch = (noticePk:any) => {
     const commentPost = async() => {
         try{
             const formData = new FormData();
-            formData.append('comment',comment);
+            formData.append('comment', comment);
             const response = await axios.post(`15.165.169.129/api/comment/notice?member_pk=${noticePk.route.params.memberPk}&notice_pk=${noticePk.route.params.noticePk}`,
             formData,{
                 headers:{
@@ -215,4 +217,4 @@ const Watch = (noticePk:any) => {
     );
 };
 
-export default Watch;
+export default WatchNotice;

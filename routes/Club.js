@@ -1,8 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, Button } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  Button,
+  TouchableOpacity,
+  TextInput,
+  Alert,
+} from "react-native";
+import Modal from "react-native-modal";
 import styled from "styled-components/native";
 import Loader from "../components/Loader";
 import { CheckedBox, UncheckedBox } from "../components/Icon";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Container = styled.ScrollView.attrs(() => ({
   contentContainerStyle: {
@@ -82,7 +92,7 @@ const ButtonText = styled.Text`
 
 const IntroducingContainer = styled.View`
   padding: 0 5%;
-  margin: 6% 0 0 0 ;
+  margin: 6% 0 0 0;
 `;
 const IntroducingLabel = styled.Text`
   font-weight: bold;
@@ -104,9 +114,10 @@ const Club = (props) => {
       currentMemberCnt: 0,
     },
   });
+  const [checkIn, setCheckIn] = useState(false);
+  const [ModalVisible, setModal] = useState(false);
   const clubPk = props.route.params.clubPk;
   const member_pk = 1;
-  console.log(props);
 
   // 클럽 데이터 가져오기
   const getClubData = async () => {
@@ -126,6 +137,47 @@ const Club = (props) => {
     getClubData();
     setLoading(false);
   }, []);
+
+  // 현재 동방 인원수 +1
+  const checkInTrue = async (isTrue) => {
+    let thisClubData = clubData;
+    isTrue
+      ? thisClubData.data.currentMemberCnt++
+      : thisClubData.data.currentMemberCnt--;
+    setClubData(thisClubData);
+    setCheckIn(isTrue);
+  };
+
+  // 체크 박스 클릭
+  const clickCheckBox = async () => {
+    try {
+      const thisMemberPk = await AsyncStorage.getItem("pk");
+      const response = await fetch(
+        `http://15.165.169.129/api/member/${thisMemberPk}/check_in?club_pk=${clubPk}`,
+        {
+          method: "PUT",
+        }
+      );
+      const json = await response.json();
+      checkInTrue(json.data);
+    } catch (error) {
+      console.log("error in click check box: " + error);
+    }
+  };
+
+  // 체크 박스 체크 유무
+  const checkCheckbox = () => {
+    return checkIn ? <CheckedBox /> : <UncheckedBox />;
+  };
+
+  // 가입 신청 눌렀을 때
+  const apply = () => {
+    setModal(true);
+  }
+
+  useEffect(() => {
+    checkCheckbox();
+  }, [checkIn]);
 
   return loading ? (
     <Loader />
@@ -151,7 +203,9 @@ const Club = (props) => {
             </SpaceBetween>
             <CheckinView>
               <ContentText>체크인</ContentText>
-              <UncheckedBox />
+              <TouchableOpacity onPress={clickCheckBox}>
+                {checkCheckbox()}
+              </TouchableOpacity>
             </CheckinView>
           </ClubInfo>
         </VContent>
@@ -180,7 +234,7 @@ const Club = (props) => {
             <ButtonText>타임라인</ButtonText>
           </OnPressButton>
         </Posting>
-        <SubmitButton>
+        <SubmitButton onPress={apply}>
           <ButtonText>가입신청</ButtonText>
         </SubmitButton>
       </Container>
@@ -190,6 +244,29 @@ const Club = (props) => {
           <IntroducingText>{clubData.data.intro}</IntroducingText>
         </Introducing>
       </IntroducingContainer>
+      <Modal
+        visible={ModalVisible}
+      >
+        <View style={{justifyContent:"center", alignItems:"center", backgroundColor:"white", height: 200}}>
+          <View style={{justifyContent:"center", alignItems:"center", flexDirection: "row"}}>
+            <Text style={{marginRight: 10}}>이름</Text>
+            <TextInput placeholder="홍길동" />
+          </View>
+          <View style={{justifyContent:"center", alignItems:"center", flexDirection: "row"}}>
+            <Text style={{marginRight: 10}}>전화번호</Text>
+            <TextInput placeholder="010-0000-0000" />
+          </View>
+          <TouchableOpacity
+            style={{justifyContent:"center", alignItems:"center", width: 90, height: 30, marginTop:50, backgroundColor: "skyblue", borderRadius: 40}}
+            onPress={() => {
+              alert("가입이 완료되었습니다.");
+              setModal(!ModalVisible);
+            }}
+          >
+            <Text style={{color: "white"}}>가입하기</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
     </View>
   );
 };
