@@ -72,7 +72,7 @@ const EditInfo = () => {
     
     return (
         <Main>
-            <View style={{width: "100%", padding: "10%", marginTop: "20%", marginBottom: "25%", display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+            <View style={{width: "100%",borderColor: "black", padding: "14%", marginTop: "20%", marginBottom: "25%", display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
                 <Image style={{width: 100, height: 100}} source={require('../assets/icon.png')} />
                 <TouchableOpacity style={styles.profileImgBtn} onPress={requestpofileimg}>
                     <Text style={{fontSize: 20, color: "white"}}>프로필사진수정</Text>
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
         borderRadius: 10, backgroundColor: "skyblue", width: 150, height: 50, justifyContent: "center", alignItems: "center" 
     },
     passwordBtn: {
-        borderRadius: 10, backgroundColor: "skyblue", width: 250, height: 50, justifyContent: "center", alignItems: "center" 
+        borderRadius: 10, backgroundColor: "skyblue", width: 290, height: 50, justifyContent: "center", alignItems: "center" 
     },
     flowDirection: {
         flexDirection: "row"

@@ -51,9 +51,6 @@ const Login = ({ navigation }) => {
       console.log("user Pk: " + JSON.stringify(userData));
 
       AsyncStorage.setItem("pk", userData.data.toString());
-      // AsyncStorage.setItem("userType", userType.member);
-      // AsyncStorage.setItem("userType.userType", "");
-
       AsyncStorage.setItem('userType.userType','member', () => {
         console.log('유저 타입 저장 완료')
       });

@@ -11,6 +11,7 @@ const Profile = styled.View`
     justify-content: space-between;
     padding: 0 10%;
     margin: 10% 0;
+    background-Color: skyblue;
 `;
 
 const UserImg = styled.View`
@@ -22,30 +23,28 @@ const UserId = styled.Text`
     font-size: 30px;
 `;
 
-const Joined = styled.View`
-    padding: 0 10%;
-    margin: 10% 0;
-`;
-
 const BookmarkList = styled.View`
     padding: 0 10%;
     margin: 10% 0;
+    background-Color: skyblue;
 `;
 
 const BookmarkTitle = styled.Text`
     font-size: 30px;
     margin-bottom: 8%;
+    background-Color: skyblue;
 `;
 
 const Bookmark = styled.TouchableOpacity`
     display: flex;
     justify-content: center;
-    margin-bottom: 5%;
+    margin-bottom: 3%;
     margin-left: 5%;
     width: 90%;
     height: 30%;
     border: 1px solid rgba(0,0,0,0.5);
     border-radius: 10px;
+    background-Color: skyblue;
 `;
 
 const ClubName = styled.Text`
@@ -60,9 +59,12 @@ const MyPage = ({navigation}) => {
     });
 
     const bookrmark = [
-        {bookmarkPk: 1, bookmarkName: "햇귀"},
+        {bookmarkPk: 1, bookmarkName: "d잉"},
         {bookmarkPk: 2, bookmarkName: "기라성"},
-        {bookmarkPk: 3, bookmarkName: "소리울림"}, 
+        {bookmarkPk: 3, bookmarkName: "소리울림"},
+        {bookmarkPk: 4, bookmarkName: "우엥"},
+        {bookmarkPk: 5, bookmarkName: "소리울림"},
+        {bookmarkPk: 6, bookmarkName: "소리울림"},
     ];
 
     useEffect(() => {
@@ -73,7 +75,7 @@ const MyPage = ({navigation}) => {
   // 멤버의 즐겨찾기 한 동아리 가져오기
   const getUserInfo = async () => {
       if(AsyncStorage.getItem("userType") === userType.member){
-          
+        return <View></View>;
       }
     try {
       const memberPK = await AsyncStorage.getItem("pk");
@@ -88,14 +90,14 @@ const MyPage = ({navigation}) => {
     }
   };
 
-  const renderJoinedClub = () => {
-      if(userInfo.joinedClub == null) {
-        return <View></View>;
-      }
-      userInfo.joinedClub.map((club, key) => {
-        return(<TouchableOpacity onPress={() => navigation.navigate("Club", {clubPk: club.joinedClubPk})} key={key}><Text>{club.joinedClubName}</Text></TouchableOpacity>)
-    })
-  }
+//   const renderJoinedClub = () => {
+//       if(userInfo.joinedClub == null) {
+//         return <View></View>;
+//       }
+//       userInfo.joinedClub.map((club, key) => {
+//         return(<TouchableOpacity onPress={() => navigation.navigate("Club", {clubPk: club.joinedClubPk})} key={key}><Text>{club.joinedClubName}</Text></TouchableOpacity>)
+//     })
+//   }
 
     return (
         <ScrollView nestedScrollEnabled = {true}>
@@ -109,12 +111,8 @@ const MyPage = ({navigation}) => {
                 </UserId>
                 <Text onPress={() => navigation.navigate('EditInfo')}>정보 수정</Text>
             </Profile>
-            <Joined>
-                <Text>가입한 동아리</Text>
-                <ScrollView nestedScrollEnabled = {true}>
-                    {renderJoinedClub()}
-                </ScrollView>
-            </Joined>
+
+          
             <BookmarkList>
                 <BookmarkTitle>즐겨찾기</BookmarkTitle>
                 <ScrollView nestedScrollEnabled = {true}>
