@@ -107,6 +107,7 @@ const WatchTimeline = (timelinePk:any) => {
     const [loading,setLoading] = useState(true);
     const [like,setLike] = useState(false);
     const [comment,setComment] = useState('');
+    const [userType,setUserType] = useState('');
     const saveLike = async (like:any) => {
         await AsyncStorage.setItem(`${timelinePk.route.params.timelinePk}`, JSON.stringify(like));
       };
@@ -117,6 +118,9 @@ const WatchTimeline = (timelinePk:any) => {
 
     const callApi = async() => {
         try{
+            AsyncStorage.getItem('userType.userType', (err, result) => {
+                setUserType(result); // 유저 타입 출력
+            });
             const response = await axios.get(`http://15.165.169.129/api/club/timeline/${timelinePk.route.params.timelinePk}?member_pk=${timelinePk.route.params.memberPk}`);
             setTimeline(response.data.data);
             loadLike(response);
@@ -179,9 +183,11 @@ const WatchTimeline = (timelinePk:any) => {
                 <ScrollView>
                 <Title>{timeline.title}</Title>
                 <Time>{timeline.postingTime}</Time>
-                <DelPost>
-                    <Text onPress={()=>DeletePost()}>글 삭제</Text>
-                </DelPost>
+                {(userType == 'manager') ?
+                    (<DelPost>
+                        <Text onPress={()=>DeletePost()}>글 삭제</Text>
+                    </DelPost>) : (<View></View>)
+                }
                 <Detail>{timeline.content}</Detail>
                 <Image source={{uri:`${timeline.imageUrl}`}}/>
                 <Counting>

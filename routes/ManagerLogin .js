@@ -6,11 +6,10 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
 const Main = styled.View`
-  flowdirection : row;
   display: flex;
   align-items: flex-start;
   margin-top: 45%;
-  margin-left: 50;
+  margin-left: 5%;
 `;
 
 const ManagerLogin = ({ navigation }) => {

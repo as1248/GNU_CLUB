@@ -9,7 +9,7 @@ const Main = styled.View`
   display: flex;
   align-items: flex-start;
   margin-top: 45%;
-  margin-left: 12%;
+  margin-left: 5%;
 `;
 
 const Login = ({ navigation }) => {

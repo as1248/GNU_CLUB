@@ -127,11 +127,11 @@ const Club = (props) => {
     await getClubData();
     setRefreshing(false);
   };
-
+  let member_pk;
   // 클럽 데이터 가져오기
   const getClubData = async () => {
     try {
-      const member_pk = await AsyncStorage.getItem("pk");
+      member_pk = await AsyncStorage.getItem("pk");
       const response = await fetch(
         `http://15.165.169.129/api/club/${clubPk}?member_pk=${member_pk}`
       );
@@ -200,8 +200,6 @@ const Club = (props) => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        {/* 동아리 사진 삽입 */}
-        {/* 더미 이미지 */}
         <ClubImage source={require("../assets/freeImages.png")} />
 
         <VContent>
