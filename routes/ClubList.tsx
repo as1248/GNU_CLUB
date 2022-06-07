@@ -40,6 +40,8 @@ const ClubList = ({ navigation }) => {
     } catch (error) {
       console.log("error in get Category List: " + error);
     }
+    const tye = AsyncStorage.getItem(userType.userType)
+    console.log(tye) 
   };
 
   // 카테 고리 가져오기

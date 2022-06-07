@@ -51,7 +51,8 @@ const Login = ({ navigation }) => {
       console.log("user Pk: " + JSON.stringify(userData));
 
       AsyncStorage.setItem("pk", userData.data.toString());
-      AsyncStorage.setItem("userType", userType.member);
+      // AsyncStorage.setItem("userType", userType.member);
+      AsyncStorage.setItem("userType.userType", "member");
       
       nav(`Main`);
     } catch (error) {

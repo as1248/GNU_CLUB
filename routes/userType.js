@@ -1,4 +1,8 @@
+// const userType = {
+//    member: "member",
+//    manager: "manager"
+// }
+
 const userType = {
-    member: "member",
-    manager: "manager"
-}
+    userType : null
+};
