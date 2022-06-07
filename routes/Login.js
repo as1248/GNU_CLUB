@@ -9,7 +9,7 @@ const Main = styled.View`
   display: flex;
   align-items: flex-start;
   margin-top: 45%;
-  margin-left: 25px;
+  margin-left: 12%;
 `;
 
 const Login = ({ navigation }) => {
@@ -51,6 +51,8 @@ const Login = ({ navigation }) => {
       console.log("user Pk: " + JSON.stringify(userData));
 
       AsyncStorage.setItem("pk", userData.data.toString());
+      AsyncStorage.setItem("userType", userType.member);
+      
       nav(`Main`);
     } catch (error) {
       alert("로그인 정보가 없습니다.");

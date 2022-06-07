@@ -22,7 +22,7 @@ const ManagerLogin = ({ navigation }) => {
     navigation.replace(page);
   };
 
-  // 로그인 버튼 실행 함수
+  // 매니저 로그인 버튼 실행 함수
   const requestManagerLogin = async () => {
     if (id === ""){
       return alert("ID를 입력하지 않았습니다.");
@@ -46,6 +46,8 @@ const ManagerLogin = ({ navigation }) => {
       console.log("user Pk: " + JSON.stringify(userData));
 
       AsyncStorage.setItem("pk", userData.data.toString());
+      AsyncStorage.setItem("userType", userType.manager);
+      
       nav(`Main`);
     } catch (error) {
       alert("로그인 정보가 없습니다.");

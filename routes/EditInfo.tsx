@@ -21,17 +21,14 @@ const ChangeInfo = styled.View`
 
 `;
 
-
-
 const EditInfo = () => {
+
     const [pw, setpw] = useState("");
     const [pwn, setPwn] = useState("");
     const [pwnc, setPwnc] = useState("");
 
-    const requestpofileimg = async () => {
-        //ddd//
-    }
-      
+    const requestpofileimg = async () => {      
+
     const requestAlterpw = async () => {
         if (pw === ""){
             return alert("비밀번호를 입력하지 않았습니다.");
@@ -43,7 +40,7 @@ const EditInfo = () => {
             return alert("새비밀번호 확인을 입력하지 않았습니다.");
         }
         if (pwn !== pwnc){
-            return alert("새비밀번호가 일치하지 않습니다.")
+            return alert("새비밀번호가 일치하지 않습니다.");
         }
 
         try {
@@ -71,13 +68,13 @@ const EditInfo = () => {
           }
     }
 
-
     
     return (
         <Main>
             <View style={{padding: "10%", marginBottom: "5%"}}>
                 <Image style={{width: 100, height: 100}} source={require('../assets/icon.png')} />
-                <TouchableOpacity style={styles.buttons} onPress={requestpofileimg}>
+                
+                /<TouchableOpacity style={styles.buttons} onPress={requestpofileimg}>/
                     <Text style={{fontSize: 20, color: "white"}}>프로필사진수정</Text>
                 </TouchableOpacity>
             </View>  
@@ -91,7 +88,7 @@ const EditInfo = () => {
             </ChangeInfo> 
         </Main>
     );
-};
+    };
 
 const styles = StyleSheet.create({
     signText: {
@@ -105,5 +102,5 @@ const styles = StyleSheet.create({
         flexDirection: "row"
     }
   })
-
+}
 export default EditInfo;

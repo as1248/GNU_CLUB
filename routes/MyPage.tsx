@@ -41,6 +41,9 @@ const MyPage = ({navigation}) => {
 
   // 멤버의 즐겨찾기 한 동아리 가져오기
   const getUserInfo = async () => {
+      if(AsyncStorage.getItem("userType") === userType.member){
+          
+      }
     try {
       const memberPK = await AsyncStorage.getItem("pk");
       const response = await fetch(

@@ -22,6 +22,8 @@ const SignIn = ({navigation}) => {
     const [pwc, setpwc] = useState("");
 
     const apply = async () => {
+        const reg = /^[A-Za-z0-9]{1,10}$/;
+        const reg2 = /^[A-Za-z0-9]{1,15}$/;
         if (id === ""){
            return alert("ID를 입력하지 않았습니다.");
         }
@@ -32,9 +34,15 @@ const SignIn = ({navigation}) => {
            return alert("PW확인을 입력하지 않았습니다.");
         }
         if (pw !== pwc){
-            return alert("비밀번호가 일치하지 않습니다.")
+            return alert("비밀번호가 일치하지 않습니다.");
         }
-
+        if (!reg.test(id)){
+           return alert("숫자 영문을 포함한 10자리 이내의 ID를 입력해주세요.");   
+        }
+        if (!reg2.test(pw)){
+            return alert("숫자 영문을 포함한 15자리 이내의 PW를 입력해주세요.");   
+         }
+        
         try {
             const response = await fetch('http://15.165.169.129/api/member/signup', {
                 method: "POST", 
@@ -76,7 +84,7 @@ const SignIn = ({navigation}) => {
       </View>
 
         <TouchableOpacity style={styles.buttons} onPress={apply}>
-            <Text style={{fontSize: 20, color: "white"}}>로그인</Text>
+            <Text style={{fontSize: 20, color: "white"}}>가입하기</Text>
         </TouchableOpacity>
     </Main>
     );
