@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ActivityIndicator, View } from 'react-native';
 import styled from 'styled-components/native';
 import axios from "axios";
@@ -50,9 +51,12 @@ const Notice = ({navigation, route}) => {
     const member_pk = route.params.member_pk;
     const [noticeList,setNoticeList] = useState<any>();
     const [loading,setLoading] = useState(true);
-    
+    const [userType,setUserType] = useState('');
     const callApi = async() => {
         try{
+            AsyncStorage.getItem('userType.userType', (err, result) => {
+                setUserType(result); // 유저 타입 출력
+            });
             const response = await axios.get(`http://15.165.169.129/api/club/${clubPk}/notices`);
             setNoticeList(response.data.data);
             setLoading(false);
@@ -70,7 +74,9 @@ const Notice = ({navigation, route}) => {
         <Main>
             <Header>
                 <GoBack onPress={() => navigation.goBack()}>&lt;</GoBack>
-                <Posting onPress={() => navigation.navigate('NoticePosting',{clubPk: clubPk})}>+</Posting>
+                {(userType == 'manager') ?
+                    (<Posting onPress={() => navigation.navigate('NoticePosting',{clubPk: clubPk})}>+</Posting>) : (<View></View>)
+                }
             </Header>   
             <List>
                 {noticeList.reverse().map((notice:any,index:number)=>{

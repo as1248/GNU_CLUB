@@ -107,6 +107,7 @@ const WatchNotice = (noticePk:any) => {
     const [loading,setLoading] = useState(true);
     const [like,setLike] = useState(false);
     const [comment,setComment] = useState('');
+    const [userType,setUserType] = useState('');
     const saveLike = async (like:any) => {
         await AsyncStorage.setItem(`${noticePk.route.params.noticePk}`, JSON.stringify(like));
       };
@@ -117,6 +118,9 @@ const WatchNotice = (noticePk:any) => {
 
     const callApi = async() => {
         try{
+            AsyncStorage.getItem('userType.userType', (err, result) => {
+                setUserType(result); // 유저 타입 출력
+            });
             const response = await axios.get(`http://15.165.169.129/api/club/notice/${noticePk.route.params.noticePk}?member_pk=${noticePk.route.params.memberPk}`);
             setNotice(response.data.data);
             loadLike(response);
@@ -181,9 +185,11 @@ const WatchNotice = (noticePk:any) => {
                 <ScrollView>
                 <Title>{notice.title}</Title>
                 <Time>{notice.postingTime}</Time>
-                <DelPost>
-                    <Text onPress={()=>DeletePost()}>글 삭제</Text>
-                </DelPost>
+                {(userType == 'manager') ?
+                    (<DelPost>
+                        <Text onPress={()=>DeletePost()}>글 삭제</Text>
+                    </DelPost>) : (<View></View>)
+                }
                 <Detail>{notice.content}</Detail>
                 <Image source={{uri:`${notice.imageUrl}`}}/>
                 <Counting>
