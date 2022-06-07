@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   TextInput,
   Alert,
+  RefreshControl,
 } from "react-native";
 import Modal from "react-native-modal";
 import styled from "styled-components/native";
@@ -105,6 +106,7 @@ const Introducing = styled.View`
 const IntroducingText = styled.Text`
   font-size: 20px;
 `;
+
 const Club = (props) => {
   const [loading, setLoading] = useState(true);
   const [clubData, setClubData] = useState({
@@ -117,19 +119,29 @@ const Club = (props) => {
   const [checkIn, setCheckIn] = useState(false);
   const [ModalVisible, setModal] = useState(false);
   const clubPk = props.route.params.clubPk;
-  const member_pk = 1;
+
+  //새로고침
+  const [refreshing, setRefreshing] = React.useState(false);
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await getClubData();
+    setRefreshing(false);
+  };
 
   // 클럽 데이터 가져오기
   const getClubData = async () => {
     try {
+      const member_pk = await AsyncStorage.getItem("pk");
       const response = await fetch(
         `http://15.165.169.129/api/club/${clubPk}?member_pk=${member_pk}`
       );
       const thisData = await response.json();
       setClubData(thisData);
+      console.log(clubData);
     } catch (error) {
       console.log("error in get Club data: " + error);
     }
+    
   };
 
   // 화면 들어올 때 실행
@@ -173,7 +185,7 @@ const Club = (props) => {
   // 가입 신청 눌렀을 때
   const apply = () => {
     setModal(true);
-  }
+  };
 
   useEffect(() => {
     checkCheckbox();
@@ -183,7 +195,11 @@ const Club = (props) => {
     <Loader />
   ) : (
     <View>
-      <Container>
+      <Container
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         {/* 동아리 사진 삽입 */}
         {/* 더미 이미지 */}
         <ClubImage source={require("../assets/freeImages.png")} />
@@ -244,26 +260,51 @@ const Club = (props) => {
           <IntroducingText>{clubData.data.intro}</IntroducingText>
         </Introducing>
       </IntroducingContainer>
-      <Modal
-        visible={ModalVisible}
-      >
-        <View style={{justifyContent:"center", alignItems:"center", backgroundColor:"white", height: 200}}>
-          <View style={{justifyContent:"center", alignItems:"center", flexDirection: "row"}}>
-            <Text style={{marginRight: 10}}>이름</Text>
+      <Modal visible={ModalVisible}>
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "white",
+            height: 200,
+          }}
+        >
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "row",
+            }}
+          >
+            <Text style={{ marginRight: 10 }}>이름</Text>
             <TextInput placeholder="홍길동" />
           </View>
-          <View style={{justifyContent:"center", alignItems:"center", flexDirection: "row"}}>
-            <Text style={{marginRight: 10}}>전화번호</Text>
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "row",
+            }}
+          >
+            <Text style={{ marginRight: 10 }}>전화번호</Text>
             <TextInput placeholder="010-0000-0000" />
           </View>
           <TouchableOpacity
-            style={{justifyContent:"center", alignItems:"center", width: 90, height: 30, marginTop:50, backgroundColor: "skyblue", borderRadius: 40}}
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              width: 90,
+              height: 30,
+              marginTop: 50,
+              backgroundColor: "skyblue",
+              borderRadius: 40,
+            }}
             onPress={() => {
-              alert("가입이 완료되었습니다.");
+              alert(clubData.data.clubName + " 동아리에 가입 신청되었습니다.");
               setModal(!ModalVisible);
             }}
           >
-            <Text style={{color: "white"}}>가입하기</Text>
+            <Text style={{ color: "white" }}>가입신청</Text>
           </TouchableOpacity>
         </View>
       </Modal>

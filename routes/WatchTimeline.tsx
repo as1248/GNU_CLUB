@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {View,Text,Image, Button, TextInput, ActivityIndicator} from 'react-native';
+import {View,Text,Image, Button, TextInput, ActivityIndicator, ScrollView} from 'react-native';
 import styled from 'styled-components/native';
 import axios from "axios";
 import { AntDesign } from '@expo/vector-icons';
@@ -17,6 +17,19 @@ const Time = styled.Text`
     color: rgba(0,0,0,0.5);
 `;
 
+const DelPost = styled.TouchableOpacity`
+    position: absolute;
+    left: 75%;
+    top: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 40px;
+    border: 2px solid rgba(0,0,0,0.7);
+    border-radius: 20px;
+`;
+
 const Detail = styled.Text`
     margin: 10%;
     font-size: 20px;
@@ -25,29 +38,29 @@ const Detail = styled.Text`
 const Counting = styled.View`
     display: flex;
     flex-direction: row;
-    padding: 8%;
+    padding-left: 10%;
 `;
 
 const AddComment = styled.View`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 10%;
+    padding: 5% 10%;
 `;
 const CommentInput = styled.View`
-    border: 1px black solid;
+    border: 1px solid rgba(0,0,0,0.7);
     width: 80%;
 `;
 
 const CommentList = styled.View`
-    padding: 10%;
+    padding: 5% 10%;
 `;
 const Comment = styled.View`
     display: flex;
     flex-direction: row;
-    border: 1px solid rgba(0,0,0,0.3);
+    border: 2px solid rgba(0,0,0,0.3);
     border-radius: 20px;
-    margin-bottom: 10%;
+    margin-bottom: 5%;
     padding: 2%;
 `;
 
@@ -76,6 +89,7 @@ const DelBtn = styled.TouchableOpacity`
     top: 10%;
     width: 30px;
     height: 30px;
+    border-radius: 15px;
     background-color: red;
     display: flex;
     justify-content: center;
@@ -125,29 +139,49 @@ const WatchTimeline = (timelinePk:any) => {
     }
     const commentPost = async() => {
         try{
-            const formData = new FormData();
-            formData.append('comment', comment);
-            const response = await axios.post(`15.165.169.129/api/comment/timeline?member_pk=${timelinePk.route.params.memberPk}&timeline_pk=${timelinePk.route.params.timelinePk}`,
-            formData,{
-                headers:{
-                'Content-Type': 'application/json',
-                }
-            }
-            );
+            const response = await fetch(`http://15.165.169.129/api/comment/timeline?member_pk=${timelinePk.route.params.memberPk}&timeline_pk=${timelinePk.route.params.timelinePk}`, {
+            method: "POST", 
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "comment": comment,
+            })                
+        });
             console.log(response);
         }catch(error){
             console.log(error.response.data);
         }
     }
-    useEffect(() => {callApi()},[]);
+    const DeleteComment = async(commentPk) => {
+        try{
+            await axios.delete(`http://15.165.169.129/api/comment/${commentPk}`);
+            alert("댓글이 삭제되었습니다");
+        }catch(error){
+            console.log(error.response.data);
+        }
+    }
+    const DeletePost = async() => {
+        try{
+            await axios.delete(`http://15.165.169.129/api/club/bulletin_board/timeline/${timelinePk.route.params.timelinePk}`);
+            alert("글이 삭제되었습니다");
+            timelinePk.navigation.goBack();
+        }catch(error){
+            console.log(error.response.data);
+        }
+    }
+    useEffect(() => {callApi()},[timeline]);
     return (
         <View>
             {loading ? (<View>
                 <ActivityIndicator size="large" />
             </View>) : (
-                <View>
+                <ScrollView>
                 <Title>{timeline.title}</Title>
                 <Time>{timeline.postingTime}</Time>
+                <DelPost>
+                    <Text onPress={()=>DeletePost()}>글 삭제</Text>
+                </DelPost>
                 <Detail>{timeline.content}</Detail>
                 <Image source={{uri:`${timeline.imageUrl}`}}/>
                 <Counting>
@@ -203,14 +237,14 @@ const WatchTimeline = (timelinePk:any) => {
                             <Id>{timeline.comments[index].userId}</Id>
                             <CommentDetail>{timeline.comments[index].comment}</CommentDetail>
                         </Content>
-                        <DelBtn>
+                        <DelBtn onPress={()=>DeleteComment(timeline.comments[index].commentPk)}>
                             <Del>X</Del>
                         </DelBtn>
                     </Comment>
                     );
                 })}
                 </CommentList> 
-                </View>
+                </ScrollView>
             ) }    
         </View>
         

@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState } from 'react';
-import {View,Text,TextInput,Image,Button, StyleSheet, TouchableOpacity} from 'react-native';
+import {View,Text,TextInput,Image, StyleSheet, TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
 
 const Main = styled.View`
@@ -28,6 +28,7 @@ const EditInfo = () => {
     const [pwnc, setPwnc] = useState("");
 
     const requestpofileimg = async () => {      
+    }
 
     const requestAlterpw = async () => {
         if (pw === ""){
@@ -71,36 +72,39 @@ const EditInfo = () => {
     
     return (
         <Main>
-            <View style={{padding: "10%", marginBottom: "5%"}}>
+            <View style={{width: "100%", padding: "10%", marginTop: "20%", marginBottom: "25%", display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
                 <Image style={{width: 100, height: 100}} source={require('../assets/icon.png')} />
-                
-                /<TouchableOpacity style={styles.buttons} onPress={requestpofileimg}>/
+                <TouchableOpacity style={styles.profileImgBtn} onPress={requestpofileimg}>
                     <Text style={{fontSize: 20, color: "white"}}>프로필사진수정</Text>
                 </TouchableOpacity>
             </View>  
             <ChangeInfo>
-                <TextInput style={{marginBottom: "4%"}} placeholder="현재비밀번호" onChangeText={(text) => setpw(text)} /> 
-                <TextInput style={{marginBottom: "4%"}} placeholder="새비밀번호" onChangeText={(text) => setPwn(text)} /> 
-                <TextInput style={{marginBottom: "4%"}} placeholder="새비밀번호확인" onChangeText={(text) => setPwnc(text)} /> 
-                <TouchableOpacity style={styles.buttons} onPress={requestAlterpw}>
+                <TextInput style={{marginBottom: "8%"}} placeholder="현재비밀번호" onChangeText={(text) => setpw(text)} /> 
+                <TextInput style={{marginBottom: "8%"}} placeholder="새비밀번호" onChangeText={(text) => setPwn(text)} /> 
+                <TextInput style={{marginBottom: "8%"}} placeholder="새비밀번호확인" onChangeText={(text) => setPwnc(text)} /> 
+                <TouchableOpacity style={styles.passwordBtn} onPress={requestAlterpw}>
             <Text style={{fontSize: 20, color: "white"}}>비밀번호변경</Text>
         </TouchableOpacity>
             </ChangeInfo> 
         </Main>
     );
-    };
+};
+
 
 const styles = StyleSheet.create({
     signText: {
         fontSize: 40,
         marginBottom: "5%"
     },
-    buttons: {
-        borderRadius: 10, backgroundColor: "skyblue", width: 310, height: 50, justifyContent: "center", alignItems: "center" 
+    profileImgBtn: {
+        borderRadius: 10, backgroundColor: "skyblue", width: 150, height: 50, justifyContent: "center", alignItems: "center" 
+    },
+    passwordBtn: {
+        borderRadius: 10, backgroundColor: "skyblue", width: 250, height: 50, justifyContent: "center", alignItems: "center" 
     },
     flowDirection: {
         flexDirection: "row"
     }
   })
-}
+
 export default EditInfo;

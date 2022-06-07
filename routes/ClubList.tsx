@@ -40,8 +40,11 @@ const ClubList = ({ navigation }) => {
     } catch (error) {
       console.log("error in get Category List: " + error);
     }
-    const tye = AsyncStorage.getItem(userType.userType)
-    console.log(tye) 
+
+    // 유저 타입 불러오기
+    AsyncStorage.getItem('userType.userType', (err, result) => {
+    console.log(result); // 유저 타입 출력
+});
   };
 
   // 카테 고리 가져오기
@@ -60,7 +63,7 @@ const ClubList = ({ navigation }) => {
     getCategoryList();
     getUserDate();
   }, []);
-
+  
   return (
     <Container>
       {categoryList.map((category, key) => {
@@ -71,6 +74,7 @@ const ClubList = ({ navigation }) => {
                   navigation.navigate("ClubCategory", {
                     categoryName: category.categoryName,
                     categoryPk: category.categoryPk,
+
                   })
                 }
               >

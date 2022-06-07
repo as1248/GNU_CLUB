@@ -67,8 +67,9 @@ const ClubCategory = (props) => {
   // 멤버의 즐겨찾기 한 동아리 받기
   const getUserInfo = async () => {
     try {
+      const memberPk = await AsyncStorage.getItem("pk");
       const response = await fetch(
-        `http://15.165.169.129/api/member/1/my_page`
+        `http://15.165.169.129/api/member/${memberPk}/my_page`
       );
       const json = await response.json();
       // console.log(JSON.stringify(json));

@@ -7,9 +7,19 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const Profile = styled.View`
     display: flex;
     flex-direction: row;
+    align-items: center;
     justify-content: space-between;
     padding: 0 10%;
     margin: 10% 0;
+`;
+
+const UserImg = styled.View`
+    margin-left: -15%;
+`;
+
+const UserId = styled.Text`
+    margin-right: 20%;
+    font-size: 30px;
 `;
 
 const Joined = styled.View`
@@ -17,9 +27,29 @@ const Joined = styled.View`
     margin: 10% 0;
 `;
 
-const Bookmark = styled.View`
+const BookmarkList = styled.View`
     padding: 0 10%;
     margin: 10% 0;
+`;
+
+const BookmarkTitle = styled.Text`
+    font-size: 30px;
+    margin-bottom: 8%;
+`;
+
+const Bookmark = styled.TouchableOpacity`
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5%;
+    margin-left: 5%;
+    width: 90%;
+    height: 30%;
+    border: 1px solid rgba(0,0,0,0.5);
+    border-radius: 10px;
+`;
+
+const ClubName = styled.Text`
+    font-size: 20px;
 `;
 
 const MyPage = ({navigation}) => {
@@ -38,6 +68,7 @@ const MyPage = ({navigation}) => {
     useEffect(() => {
         getUserInfo();
     },[])
+
 
   // 멤버의 즐겨찾기 한 동아리 가져오기
   const getUserInfo = async () => {
@@ -67,27 +98,34 @@ const MyPage = ({navigation}) => {
   }
 
     return (
-        <View>
+        <ScrollView nestedScrollEnabled = {true}>
             <Profile>
-                <Image source={{uri:'splash'}}/><Text><Fontisto name="person" size={24} color="black" />
-                <Text>{userInfo.signInId}</Text>
-                </Text><Text onPress={() => navigation.navigate('EditInfo')}>정보 수정</Text>
+                <Image source={{uri:'splash'}}/>
+                <UserImg>
+                    <Fontisto name="person" size={30} color="black" />
+                </UserImg>
+                <UserId>
+                    {userInfo.signInId}
+                </UserId>
+                <Text onPress={() => navigation.navigate('EditInfo')}>정보 수정</Text>
             </Profile>
             <Joined>
                 <Text>가입한 동아리</Text>
-                <ScrollView>
+                <ScrollView nestedScrollEnabled = {true}>
                     {renderJoinedClub()}
                 </ScrollView>
             </Joined>
-            <Bookmark>
-                <Text>즐겨찾기</Text>
-                <ScrollView>
+            <BookmarkList>
+                <BookmarkTitle>즐겨찾기</BookmarkTitle>
+                <ScrollView nestedScrollEnabled = {true}>
                     {bookrmark.map((club, key) => {
-                        return(<TouchableOpacity onPress={() => navigation.navigate("Club", {clubPk: club.bookmarkPk})} key={key}><Text>{club.bookmarkName}</Text></TouchableOpacity>)
+                        return(<Bookmark onPress={() => navigation.navigate("Club", {clubPk: club.bookmarkPk})} key={key}>
+                                <ClubName>{club.bookmarkName}</ClubName>
+                            </Bookmark>)
                     })}
                 </ScrollView>
-            </Bookmark>
-        </View>
+            </BookmarkList>
+        </ScrollView>
     );
 };
 

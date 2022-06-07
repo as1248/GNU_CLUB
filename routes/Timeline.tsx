@@ -47,9 +47,9 @@ const GoBack = styled.Text`
 const Timeline = ({navigation, route}) => {
     const clubPk = route.params.clubPk;
     const member_pk = route.params.member_pk;
-    
     const [timelineList,setTimelineList] = useState<any>();
     const [loading,setLoading] = useState(true);
+
     const callApi = async() => {
         try{
             const response = await axios.get(`http://15.165.169.129/api/club/${clubPk}/timelines`);
@@ -60,7 +60,7 @@ const Timeline = ({navigation, route}) => {
         };
     }
     
-    useEffect(() => {callApi()},[]);
+    useEffect(() => {callApi()},[timelineList]);
     return (
       <View>
           {loading ? (<View>

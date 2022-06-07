@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, RefreshControl } from "react-native";
 import styled from "styled-components/native";
 import { Feather } from "@expo/vector-icons";
 
-const Main = styled.View`
+const Main = styled.ScrollView.attrs(() => ({
+  contentContainerStyle: {
+    justifyContent: "center",
+  },
+}))`
   // display: flex;
-  justify-content: center;
   padding: 0 10%;
 `;
 
@@ -44,6 +47,15 @@ const RankingClubText = styled.Text`
 const Ranking = ({ navigation }) => {
   const [rankingTotal, setRankingTotal] = useState([]);
   const [rankingWeek, setRankingWeek] = useState([]);
+  
+  //새로고침
+  const [refreshing, setRefreshing] = React.useState(false);
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await getRankingTotal();
+    await getRankingWeek();
+    setRefreshing(false);
+  };
 
   // 전체 랭킹 데이터 가져오기
   const getRankingTotal = async () => {
@@ -81,7 +93,11 @@ const Ranking = ({ navigation }) => {
     getRankingWeek();
   }, []);
   return (
-    <Main>
+    <Main
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    >
       <RankingCategory>전체 동아리 랭킹</RankingCategory>
       <RankingContainer>
         {rankingTotal.map((club, key) => (

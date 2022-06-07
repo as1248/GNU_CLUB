@@ -51,10 +51,11 @@ const BtnText = styled.Text`
 `;
 
 const NoticePosting = (clubPk:any) => {
-    let title;
-    let content;
     const [image, setImage] = useState();
-
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
+    const [titleLen,setTitleLen] = useState(0);
+    const [contentLen,setContentLen] = useState(0);
   const pickImage = async () => {
     let result:any = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -95,7 +96,9 @@ const NoticePosting = (clubPk:any) => {
                 placeholder='title' 
                 maxLength={100} 
                 onChangeText={(event) => {
-                    title = event;
+                    setTitle(event);
+                    setTitleLen(title.length);
+
                 }}/>
             </Title>
             <Detail>
@@ -104,7 +107,8 @@ const NoticePosting = (clubPk:any) => {
                 maxLength={5000}
                 multiline={true}
                 onChangeText={(event) => {
-                    content = event;
+                    setContent(event);
+                    setContentLen(content.length);
                 }}/>
             </Detail>
             <Images>
@@ -114,7 +118,14 @@ const NoticePosting = (clubPk:any) => {
                 </Btn>
             </Images>
             <PostButton>
-                <Btn onPress={() => post()}>
+                <Btn onPress={() => {
+                    if(titleLen == 0 || contentLen == 0){
+                        alert("제목, 내용을 입력해주세요");
+                    }else{
+                        post();
+                    }
+                }
+                }>
                     <BtnText>게시</BtnText>
                 </Btn>
             </PostButton>
