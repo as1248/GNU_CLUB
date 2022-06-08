@@ -1,14 +1,13 @@
 import styled from "styled-components/native";
 import React, { useEffect, useState } from "react";
-import {
-  View,
+import {  View,
   Text,
   Image,
   ScrollView,
   TouchableOpacity,
   RefreshControl,
 } from "react-native";
-import { Fontisto } from "@expo/vector-icons";
+// import { Fontisto } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
@@ -24,8 +23,8 @@ const Profile = styled.View`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 7%;
+  justify-content: center;
+  padding: 0 20%;
   margin: 10% 0;
   border: 1px solid black;
 `;
@@ -39,12 +38,6 @@ const UserId = styled.Text`
   margin-right: 20%;
   font-size: 30px;
 `;
-
-// const Joined = styled.View`
-//   padding: 0 10%;
-//   margin: 10% 0;
-//   border: ;
-// `;
 
 const BookmarkList = styled.View`
   padding: 5%;
@@ -60,6 +53,8 @@ const BookmarkContainer = styled.View`
 
 const BookmarkTitle = styled.Text`
   font-size: 30px;
+  margin-top: 5%;
+  margin-bottom: 5%;
 `;
 
 const BookmarkContentContainer = styled.View`
@@ -81,9 +76,10 @@ const List = styled.View`
   align-items: center;
   justify-content: space-between;
   border: 2px;
-  border-color: #9a9a9a;
+  border-color: #38aeea;
+  border-radius: 6;
   border-collapse: collapse;
-  background-color: #ced1ce;
+  background-color: white;
   padding: 5px 13px 5px 11px;
   margin-bottom: 2%;
 `;
@@ -187,7 +183,7 @@ useEffect(() => {
       </Joined> */}
       <BookmarkList>
         <BookmarkContainer>
-          <BookmarkTitle>즐겨찾기</BookmarkTitle>
+          <BookmarkTitle style={{ color: "white"}}>              즐겨찾기</BookmarkTitle>
         </BookmarkContainer>
         <BookmarkContentContainer>
           {bookmark.map((club, key) => {

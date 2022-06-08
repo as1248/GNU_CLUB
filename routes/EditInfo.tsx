@@ -118,7 +118,7 @@ const EditInfo = (props:any) => {
     useEffect(()=>{callApi()},[]);
     return (
         <Main>
-            <View style={{width: "100%", padding: "10%", marginTop: "20%", marginBottom: "25%", display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+            <View style={{width: "100%", padding: "0%", marginTop: "30%", marginBottom: "5%", display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                 {(image) ? (
                 <Image style={{width: 100, height: 100}} source={{uri:image}} />
                 ) : (
@@ -147,10 +147,10 @@ const styles = StyleSheet.create({
         marginBottom: "5%"
     },
     profileImgBtn: {
-        borderRadius: 10, backgroundColor: "skyblue", width: 150, height: 50, justifyContent: "center", alignItems: "center" 
+        borderRadius: 10, backgroundColor: "#38aeea", width: 250, height: 50, justifyContent: "center", alignItems: "center" 
     },
     passwordBtn: {
-        borderRadius: 10, backgroundColor: "skyblue", width: 250, height: 50, justifyContent: "center", alignItems: "center" 
+        borderRadius: 10, backgroundColor:  "#38aeea", width: 250, height: 50, justifyContent: "center", alignItems: "center" 
     },
     flowDirection: {
         flexDirection: "row"
