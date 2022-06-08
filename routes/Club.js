@@ -168,7 +168,7 @@ const Club = (props) => {
       const thisMemberPk = await AsyncStorage.getItem("pk");
       const response = await fetch(
         `http://15.165.169.129/api/member/${thisMemberPk}/check_in`
-      )
+      );
       const json = await response.json();
       setWhereCheckIn(json.data);
       console.log("현재 체크인한 곳 : " + whereCheckIn);
@@ -179,27 +179,30 @@ const Club = (props) => {
     } catch (error) {
       console.log("error in get is checkin ? : " + error);
     }
-  }
-
+  };
 
   // 체크 박스 클릭
   const clickCheckBox = async () => {
     let clubCurrentMemberCnt = clubData.data.currentMemberCnt;
-    if (clubCurrentMemberCnt >= 8) {
-      alert("현재 동아리방 인원이 최대입니다.");
+    if (whereCheckIn != null && whereCheckIn != clubPk) {
+      alert("이미 다른 동아리방에 체크인 되어있습니다.");
     } else {
-      try {
-        const thisMemberPk = await AsyncStorage.getItem("pk");
-        const response = await fetch(
-          `http://15.165.169.129/api/member/${thisMemberPk}/check_in?club_pk=${clubPk}`,
-          {
-            method: "PUT",
-          }
-        );
-        const json = await response.json();
-        checkInTrue(json.data);
-      } catch (error) {
-        console.log("error in click check box: " + error);
+      if (clubCurrentMemberCnt >= 8) {
+        alert("현재 동아리방 인원이 최대입니다.");
+      } else {
+        try {
+          const thisMemberPk = await AsyncStorage.getItem("pk");
+          const response = await fetch(
+            `http://15.165.169.129/api/member/${thisMemberPk}/check_in?club_pk=${clubPk}`,
+            {
+              method: "PUT",
+            }
+          );
+          const json = await response.json();
+          checkInTrue(json.data);
+        } catch (error) {
+          console.log("error in click check box: " + error);
+        }
       }
     }
   };
@@ -221,7 +224,7 @@ const Club = (props) => {
   useEffect(() => {
     getIsCheckIn();
   }, [whereCheckIn]);
-  
+
   return loading ? (
     <Loader />
   ) : (
