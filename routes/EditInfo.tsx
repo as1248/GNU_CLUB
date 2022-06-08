@@ -126,7 +126,7 @@ const EditInfo = () => {
                 <TextInput style={{marginBottom: "8%"}} placeholder="새비밀번호" onChangeText={(text) => setPwn(text)} /> 
                 <TextInput style={{marginBottom: "8%"}} placeholder="새비밀번호확인" onChangeText={(text) => setPwnc(text)} /> 
                 <TouchableOpacity style={styles.passwordBtn} onPress={requestAlterpw}>
-            <Text style={{fontSize: 20, color: "white"}}>비밀번호변경</Text>
+            <Text style={{fontSize: 20, color: "white"}}>비밀번호변경d</Text>
         </TouchableOpacity>
             </ChangeInfo> 
         </Main>
