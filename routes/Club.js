@@ -128,6 +128,7 @@ const Club = (props) => {
   const [member_pk, setMemberPk] = useState(0);
   const [whereCheckIn, setWhereCheckIn] = useState(null);
   const [image, setImage] = useState(null);
+  const [userType,setUserType] = useState('');
 
   //새로고침
   const [refreshing, setRefreshing] = React.useState(false);
@@ -232,6 +233,7 @@ const Club = (props) => {
   }, [whereCheckIn]);
 
   // 동아리 대표사진 수정
+
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -273,6 +275,11 @@ const Club = (props) => {
     }
   };
 
+  if(userType == ''){
+    AsyncStorage.getItem('userType.userType', (err, result) => {
+        setUserType(result);
+    });
+}
   return loading ? (
     <Loader />
   ) : (
@@ -282,11 +289,14 @@ const Club = (props) => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        <TouchableOpacity style={styles.Btn} onPress={pickImage}>
-          <Text style={{ fontSize: 15, color: "white" }}>
-            동아리 대표사진 수정
-          </Text>
-        </TouchableOpacity>
+
+      {(userType == 'manager') ?
+        ( <TouchableOpacity style={styles.Btn} onPress={pickImage}>
+            <Text style={{ fontSize: 15, color: "white" }}>
+              동아리 대표사진 수정
+            </Text>
+          </TouchableOpacity>) : (<View></View>)
+      }
 
         {/* <ClubImage source={require("../assets/freeImages.png")} /> */}
         <ImgBox>
