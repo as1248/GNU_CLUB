@@ -1,14 +1,13 @@
 import styled from "styled-components/native";
 import React, { useEffect, useState } from "react";
-import {
-  View,
+import {  View,
   Text,
   Image,
   ScrollView,
   TouchableOpacity,
   RefreshControl,
 } from "react-native";
-import { Fontisto } from "@expo/vector-icons";
+// import { Fontisto } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Container = styled.ScrollView.attrs(() => ({
@@ -23,10 +22,10 @@ const Profile = styled.View`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 7%;
+  justify-content: center;
+  padding: 0 20%;
   margin: 10% 0;
-  border: ;
+  
 `;
 
 const UserImg = styled.View`
@@ -35,30 +34,27 @@ const UserImg = styled.View`
 `;
 
 const UserId = styled.Text`
-  margin-right: 20%
+  margin-right: 10%
   font-size: 30px;
 `;
-
-// const Joined = styled.View`
-//   padding: 0 10%;
-//   margin: 10% 0;
-//   border: ;
-// `;
 
 const BookmarkList = styled.View`
   padding: 5%;
   //   margin: 10% 0;
-  border: ;
+
 `;
 const BookmarkContainer = styled.View`
-  background-color: #ced1ce;
-  border: ;
+  background-color: #38aeea;
+  
+  border-radius: 10;
   margin-bottom: 5%;
   padding-left: 5%;
 `;
 
 const BookmarkTitle = styled.Text`
   font-size: 30px;
+  margin-top: 5%;
+  margin-bottom: 5%;
 `;
 
 const BookmarkContentContainer = styled.View`
@@ -82,9 +78,10 @@ const List = styled.View`
   align-items: center;
   justify-content: space-between;
   border: 2px;
-  border-color: #9a9a9a;
+  border-color: #38aeea;
+  border-radius: 6;
   border-collapse: collapse;
-  background-color: #ced1ce;
+  background-color: white;
   padding: 5px 13px 5px 11px;
   margin-bottom: 2%;
 `;
@@ -186,11 +183,12 @@ const MyPage = ({ navigation }) => {
       }
     >
       <Profile>
-        {/* <Image source={{ uri: "splash" }} /> */}
-        <UserImg>
-          <Fontisto name="person" size={30} color="black" />
-        </UserImg>
-        <UserId>{userInfo.signInId}</UserId>
+        {/* <Image source={{ uri: "splash" }} />*/}
+        {/* <View style={{width: "100%", padding: "0%", marginTop: "30%", marginBottom: "5%", display: "flex", justifyContent: "space-between", alignItems: "center"}}> */}
+          <View>
+                <Image style={{width: 100, height: 100, borderColor: "#38aeea", borderWidth: 8, borderRadius: 30, marginTop: 5, marginBottom: 5}} source={require('../assets/icon.png')} />
+            </View>    
+        <UserId><Text>   ID : </Text>{userInfo.signInId}</UserId>
         <Text onPress={() => navigation.navigate("EditInfo")}>정보 수정</Text>
       </Profile>
 
@@ -200,7 +198,7 @@ const MyPage = ({ navigation }) => {
       </Joined> */}
       <BookmarkList>
         <BookmarkContainer>
-          <BookmarkTitle>즐겨찾기</BookmarkTitle>
+          <BookmarkTitle style={{ color: "white"}}>              즐겨찾기</BookmarkTitle>
         </BookmarkContainer>
         <BookmarkContentContainer>
           {bookmark.map((club, key) => {

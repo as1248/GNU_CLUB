@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
         marginBottom: "5%"
     },
     buttons: {
-        borderRadius: 10, backgroundColor: "skyblue", width: 310, height: 50, justifyContent: "center", alignItems: "center" 
+        borderRadius: 10, backgroundColor: "#38aeea", width: 310, height: 50, justifyContent: "center", alignItems: "center" 
     },
     flowDirection: {
         flexDirection: "row"
