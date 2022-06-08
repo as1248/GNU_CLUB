@@ -2,6 +2,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState } from 'react';
 import {View,Text,TextInput,Image, StyleSheet, TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
+import axios from "axios";
+import * as ImagePicker from 'expo-image-picker';
 
 const Main = styled.View`
     display: flex;
@@ -26,9 +28,57 @@ const EditInfo = () => {
     const [pw, setpw] = useState("");
     const [pwn, setPwn] = useState("");
     const [pwnc, setPwnc] = useState("");
+    const [image, setImage] = useState(null);
 
-    const requestpofileimg = async () => {      
-    }
+    const pickImage = async () => {
+        let result:any = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.All,
+          allowsEditing: true,
+          aspect: [1,1],
+          quality: 1,
+        });
+        setImage(result.uri);
+        // const setImage = async() => {
+        //     try{
+        //         const formData = new FormData();
+                
+        //         formData.append('image', {uri: image, name: image.split('/').pop(), type: 'image/png'});
+                
+        //         await axios({
+        //             method: 'get',
+        //             url: `http://15.165.169.129/api/member/${memberPK}/my_page`,
+        //             data: formData,
+        //             headers: {
+        //                 'Content-Type': 'multipart/form-data',
+        //                 'Accept': '*/*'
+        //             }
+        //         });
+        //         }catch(error){
+        //         console.log(error.response.data);
+        //     }
+        // }
+        callApi();
+        }
+        const callApi = async() => {
+            try{
+                const formData = new FormData();
+                
+                formData.append('image', {uri: image, name: image.split('/').pop(), type: 'image/png'});
+                
+                await axios({
+                    method: 'put',
+                    url: `http://15.165.169.129/api/member/{memberPK}/profile_image`,
+                    data: formData,
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        'Accept': '*/*'
+                    }
+                });
+                }catch(error){
+                console.log(error.response.data);
+            }
+        }
+        
 
     const requestAlterpw = async () => {
         if (pw === ""){
@@ -73,8 +123,12 @@ const EditInfo = () => {
     return (
         <Main>
             <View style={{width: "100%", padding: "10%", marginTop: "20%", marginBottom: "25%", display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
-                <Image style={{width: 100, height: 100}} source={require('../assets/icon.png')} />
-                <TouchableOpacity style={styles.profileImgBtn} onPress={requestpofileimg}>
+                {(image) ? (
+                <Image style={{width: 100, height: 100}} source={{uri:`${image}`}} />
+                ) : (
+                <Image style={{width: 100, height: 100}} source={require('../assets/icon.png')} />)}
+                
+                <TouchableOpacity style={styles.profileImgBtn} onPress={pickImage}>
                     <Text style={{fontSize: 20, color: "white"}}>프로필사진수정</Text>
                 </TouchableOpacity>
             </View>  
