@@ -30,8 +30,7 @@ const Profile = styled.View`
 `;
 
 const UserImg = styled.View`
-  // margin-left: -15%;
-  //   border: ;
+  margin-right: 5%;
 `;
 
 const UserId = styled.Text`
@@ -47,10 +46,8 @@ const BookmarkList = styled.View`
 
 const BookmarkContainer = styled.View`
   background-color: #38aeea;
-  
   border-radius: 10;
   margin-bottom: 5%;
-  padding-left: 5%;
 `;
 
 const BookmarkTitle = styled.Text`
@@ -145,7 +142,7 @@ useEffect(() => {
 
       <BookmarkList>
         <BookmarkContainer>
-          <BookmarkTitle style={{ color: "white"}}>              즐겨찾기</BookmarkTitle>
+          <BookmarkTitle style={{ color: "white", textAlign: "center"}}>즐겨찾기</BookmarkTitle>
         </BookmarkContainer>
         <BookmarkContentContainer>
           {bookmark.map((club, key) => {
