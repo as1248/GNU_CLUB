@@ -64,6 +64,7 @@ const BookmarkTitle = styled.Text`
 const BookmarkContentContainer = styled.View`
   //   background-color: #ced1ce;
   //   border: ;
+>>>>>>> d401478e72c80c25bc27ca60f565ba1b3f2e553a
 `;
 
 // const Bookmark = styled.TouchableOpacity`
