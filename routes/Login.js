@@ -14,22 +14,26 @@ import { Ionicons } from "@expo/vector-icons";
 const Main = styled.View`
   display: flex;
   align-items: flex-start;
-  margin: 45% 10% ;
+  margin: 45% 10%;
 `;
 const MBox = styled.View`
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 75%;
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 70%;
+  margin-left: 45%;
 `;
 // coms
 const ManagerLoginBtn = styled.TouchableOpacity`
   border-radius: 10;
-  background-color: skyblue;
+  // background-color: skyblue;
   width: 50%;
-  height: 10%;
+  height: 100%;
   justify-content: center;
   align-items: center;
+  // border: ;
   opacity: 0.5;
 `;
 
@@ -120,14 +124,13 @@ const Login = ({ navigation }) => {
         }}
         onPress={() => navigation.navigate("SignIn")}
       >
-        <Text style={{ fontSize: 20 }}>회원가입</Text>
+        <Text style={{ fontSize: 20, borderColor: "" }}>회원가입</Text>
       </TouchableOpacity>
       <MBox>
-      <ManagerLoginBtn onPress={() => navigation.navigate("ManagerLogin")}>
-        <Text style={{ fontSize: 15 }}>관리자로그인</Text>
-      </ManagerLoginBtn>
+        <ManagerLoginBtn onPress={() => navigation.navigate("ManagerLogin")}>
+          <Text style={{ fontSize: 15 }}>관리자로그인</Text>
+        </ManagerLoginBtn>
       </MBox>
-      
     </Main>
   );
 };
