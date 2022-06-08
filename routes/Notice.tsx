@@ -83,7 +83,7 @@ const Notice = ({navigation, route}) => {
             <List>
                 {noticeList.reverse().map((notice:any,index:number)=>{
                     return(
-                    <Posted onPress={() => navigation.navigate('WatchNotice',{noticePk: notice.noticePk, memberPk: member_pk})} key={index}>
+                    <Posted onPress={() => navigation.navigate('WatchNotice',{noticePk: notice.noticePk, memberPk: member_pk,userType})} key={index}>
                         <Title>{notice.title}</Title>
                     </Posted>
                     );

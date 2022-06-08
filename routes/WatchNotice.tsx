@@ -186,7 +186,7 @@ const WatchNotice = (noticePk:any) => {
                     </DelPost>) : (<View></View>)
                 }
                 <Detail>{notice.content}</Detail>
-                <Image source={{uri:`${notice.imageUrl}`}}/>
+                <Image source={{ width:100, height:100, uri:`${notice.imageUrl}`,}}/>
                 <Counting>
                     <Like onPress={() => {
                         setLike(!like);
