@@ -139,7 +139,6 @@ const Club = (props) => {
       );
       const thisData = await response.json();
       setClubData(thisData);
-      console.log(member_pk);
     } catch (error) {
       console.log("error in get Club data: " + error);
     }

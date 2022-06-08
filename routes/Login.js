@@ -121,7 +121,7 @@ const Login = ({ navigation }) => {
         }}
         onPress={() => navigation.navigate("SignIn")}
       >
-        <Text style={{ fontSize: 20 }}>회원가입</Text>
+        <Text style={{ fontSize: 20}}>회원가입</Text>
       </TouchableOpacity>
       <MBox>
         <ManagerLoginBtn onPress={() => navigation.navigate("ManagerLogin")}>
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     marginBottom: "5%",
   },
   buttons: {
-    borderRadius: "10px",
+    borderRadius: 10,
     backgroundColor: "skyblue",
     width: 290,
     height: 50,

@@ -56,12 +56,10 @@ const ClubCategory = (props) => {
         `http://15.165.169.129/api/category/${categoryPk}/clubs`
       );
       const json = await response.json();
-      // console.log(JSON.stringify(json));
       setClubList(json.data);
     } catch (error) {
       console.log("error in get club list: " + error);
     }
-    // console.log(clubList);
   };
 
   // 멤버의 즐겨찾기 한 동아리 받기
@@ -77,7 +75,6 @@ const ClubCategory = (props) => {
     } catch (error) {
       console.log("error in get user info: " + error);
     }
-    console.log(userInfo);
   };
   
   useEffect(() => {
