@@ -62,16 +62,6 @@ const BookmarkTitle = styled.Text`
 const BookmarkContentContainer = styled.View`
 `;
 
-// const Bookmark = styled.TouchableOpacity`
-//   // display: flex;
-//   //   justify-content: center;
-//   //   margin-bottom: 5%;
-//   //   margin-left: 5%;
-//   //   width: 90%;
-//   //   height: 30%;
-//   //   border: 1px solid rgba(0, 0, 0, 0.5);
-//   //   border-radius: 10px;
-// `;
 const List = styled.View`
   flex-direction: row;
   align-items: center;
@@ -90,11 +80,6 @@ const ClubNameText = styled.Text`
   font-size: 25px;
   color: #4b4b4b;
 `;
-
-// const ClubName = styled.Text`
-//   font-size: 20px;
-// `;
-
 
 const MyPage = ({ navigation }) => {
   const [image, setImage] = useState(null);
@@ -120,7 +105,7 @@ const MyPage = ({ navigation }) => {
   };
 
 
-  // 멤버의 즐겨찾기 한 동아리 가져오기si
+  // 멤버의 즐겨찾기 한 동아리 가져오기
   const getUserInfo = async () => {
     try {
       setMemberPk(await AsyncStorage.getItem("pk"));
@@ -136,24 +121,6 @@ const MyPage = ({ navigation }) => {
     }
   };
 
-// 가입한 클럽
-//   const renderJoinedClub = () => {
-//     if (userInfo.joinedClub == null) {
-//       return <View></View>;
-//     }
-//     userInfo.joinedClub.map((club, key) => {
-//       return (
-//         <TouchableOpacity
-//           onPress={() =>
-//             navigation.navigate("Club", { clubPk: club.joinedClubPk })
-//           }
-//           key={key}
-//         >
-//           <Text>{club.joinedClubName}</Text>
-//         </TouchableOpacity>
-//       );
-//     });
-//   };
 
 useEffect(() => {
   getUserInfo();
@@ -176,10 +143,6 @@ useEffect(() => {
         <Text onPress={() => navigation.navigate("EditInfo",{member_pk})}>정보 수정</Text>
       </Profile>
 
-      {/* <Joined>
-        <Text>가입한 동아리</Text>
-        <ScrollView nestedScrollEnabled={true}>{renderJoinedClub()}</ScrollView>
-      </Joined> */}
       <BookmarkList>
         <BookmarkContainer>
           <BookmarkTitle style={{ color: "white"}}>              즐겨찾기</BookmarkTitle>

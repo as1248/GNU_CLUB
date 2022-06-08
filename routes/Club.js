@@ -79,7 +79,7 @@ const OnPressButton = styled.TouchableOpacity`
   padding: 2% 13%;
   margin: 0 3%;
   border-radius: 5px;
-  background-color: #0d6efd;
+  background-color: #38aeea;
 `;
 
 const SubmitButton = styled(OnPressButton)`
@@ -290,8 +290,8 @@ const Club = (props) => {
 
         {/* <ClubImage source={require("../assets/freeImages.png")} /> */}
         <ImgBox>
-          <Image
-            source={{ width: 300, height: 300, uri: `${clubData.data.backgroundImgUrl}` }}
+          <Image style={{width: 380, height: 300, borderColor: "#38aeea", borderWidth: 10, borderRadius: 10, marginTop: 20}}
+            source={{ width: 300, height: 300, borderColor: "#38aeea", borderWidth: 20, borderRadius: 10, uri: `${clubData.data.backgroundImgUrl}` }}
           />
         </ImgBox>
 
@@ -358,6 +358,8 @@ const Club = (props) => {
             alignItems: "center",
             backgroundColor: "white",
             height: 200,
+            borderWidth: "2px",
+            borderColor: "#38aeea"
           }}
         >
           <View
@@ -387,8 +389,8 @@ const Club = (props) => {
               width: 90,
               height: 30,
               marginTop: 50,
-              backgroundColor: "skyblue",
-              borderRadius: 40,
+              backgroundColor: "#38aeea",
+              borderRadius: 4,
             }}
             onPress={() => {
               alert(clubData.data.clubName + " 동아리에 가입 신청되었습니다.");
@@ -405,8 +407,8 @@ const Club = (props) => {
 
 const styles = StyleSheet.create({
   Btn: {
-    borderRadius: 10,
-    backgroundColor: "skyblue",
+    borderRadius: 3,
+    backgroundColor: "#ced1ce",
     width: 150,
     height: 30,
     justifyContent: "center",
