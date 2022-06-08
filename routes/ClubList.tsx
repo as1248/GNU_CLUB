@@ -42,9 +42,9 @@ const ClubList = ({ navigation }) => {
     }
 
     // 유저 타입 불러오기
-    AsyncStorage.getItem('userType.userType', (err, result) => {
-    console.log(result); // 유저 타입 출력
-});
+    AsyncStorage.getItem("userType.userType", (err, result) => {
+      console.log(result); // 유저 타입 출력
+    });
   };
 
   // 카테 고리 가져오기
@@ -63,27 +63,25 @@ const ClubList = ({ navigation }) => {
     getCategoryList();
     getUserDate();
   }, []);
-  
+
   return (
     <Container>
       {categoryList.map((category, key) => {
         return (
           <List key={key}>
-              <CategoryText
-                onPress={() =>
-                  navigation.navigate("ClubCategory", {
-                    categoryName: category.categoryName,
-                    categoryPk: category.categoryPk,
-
-                  })
-                }
-              >
-                {category.categoryName} 분야
-              </CategoryText>
+            <CategoryText
+              onPress={() =>
+                navigation.navigate("ClubCategory", {
+                  categoryName: category.categoryName,
+                  categoryPk: category.categoryPk,
+                })
+              }
+            >
+              {category.categoryName} 분야
+            </CategoryText>
           </List>
         );
       })}
-
     </Container>
   );
 };

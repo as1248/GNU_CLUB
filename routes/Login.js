@@ -95,9 +95,6 @@ const styles = StyleSheet.create({
   buttons: {
       borderRadius: 10, backgroundColor: "skyblue", width: 310, height: 50, justifyContent: "center", alignItems: "center" 
   },
-  flowDirection: {
-      flexDirection: "row"
-  }
 })
 
 export default Login;

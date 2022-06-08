@@ -137,7 +137,7 @@ const Club = (props) => {
       );
       const thisData = await response.json();
       setClubData(thisData);
-      console.log(clubData);
+      console.log("clubData is : " + clubData);
     } catch (error) {
       console.log("error in get Club data: " + error);
     }
