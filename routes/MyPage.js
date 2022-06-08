@@ -7,8 +7,9 @@ import {  View,
   TouchableOpacity,
   RefreshControl,
 } from "react-native";
-// import { Fontisto } from "@expo/vector-icons";
+import { Fontisto } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 const Container = styled.ScrollView.attrs(() => ({
   contentContainerStyle: {
@@ -25,7 +26,7 @@ const Profile = styled.View`
   justify-content: center;
   padding: 0 20%;
   margin: 10% 0;
-  border: ;
+  border: 1px solid black;
 `;
 
 const UserImg = styled.View`
@@ -34,18 +35,18 @@ const UserImg = styled.View`
 `;
 
 const UserId = styled.Text`
-  margin-right: 20%
+  margin-right: 20%;
   font-size: 30px;
 `;
 
 const BookmarkList = styled.View`
   padding: 5%;
   //   margin: 10% 0;
-  border: ;
+  border: 1px solid black;
 `;
 const BookmarkContainer = styled.View`
   background-color: #ced1ce;
-  border: ;
+  border: 1px solid black;
   margin-bottom: 5%;
   padding-left: 5%;
 `;
@@ -57,9 +58,7 @@ const BookmarkTitle = styled.Text`
 `;
 
 const BookmarkContentContainer = styled.View`
-  //   background-color: #ced1ce;
-  //   border: ;
->>>>>>> d401478e72c80c25bc27ca60f565ba1b3f2e553a
+
 `;
 
 // const Bookmark = styled.TouchableOpacity`
@@ -95,7 +94,10 @@ const ClubNameText = styled.Text`
 //   font-size: 20px;
 // `;
 
+
 const MyPage = ({ navigation }) => {
+  const [image, setImage] = useState(null);
+  const [member_pk, setMemberPk] = useState(0);
   const [userInfo, setUserInfo] = useState({
     signInId: "",
     joinedClub: [],
@@ -108,22 +110,6 @@ const MyPage = ({ navigation }) => {
       bookmarkName: "",
     },
   ]);
-
-  //   const bookrmark = [
-  //     { bookmarkPk: 1, bookmarkName: "햇귀" },
-  //     { bookmarkPk: 2, bookmarkName: "기라성" },
-  //     { bookmarkPk: 3, bookmarkName: "소리울림" },
-  //     { bookmarkPk: 4, bookmarkName: "소리울림" },
-  //     { bookmarkPk: 5, bookmarkName: "햇귀" },
-  //     { bookmarkPk: 6, bookmarkName: "기라성" },
-  //     { bookmarkPk: 7, bookmarkName: "소리울림" },
-  //     { bookmarkPk: 8, bookmarkName: "소리울림" },
-  //     { bookmarkPk: 9, bookmarkName: "햇귀" },
-  //     { bookmarkPk: 10, bookmarkName: "기라성" },
-  //     { bookmarkPk: 11, bookmarkName: "소리울림" },
-  //     { bookmarkPk: 12, bookmarkName: "소리울림" },
-  //   ];
-
   //새로고침
   const [refreshing, setRefreshing] = React.useState(false);
   const onRefresh = async () => {
@@ -132,24 +118,19 @@ const MyPage = ({ navigation }) => {
     setRefreshing(false);
   };
 
-  useEffect(() => {
-    getUserInfo();
-  }, []);
 
-  // 멤버의 즐겨찾기 한 동아리 가져오기
+  // 멤버의 즐겨찾기 한 동아리 가져오기si
   const getUserInfo = async () => {
-    // if (AsyncStorage.getItem("userType") === userType.userType) {
-    // }
     try {
-      const memberPK = await AsyncStorage.getItem("pk");
-      console.log("멤버피케이는 : " + memberPK);
-
+      setMemberPk(await AsyncStorage.getItem("pk"));
       const response = await fetch(
-        `http://15.165.169.129/api/member/${memberPK}/my_page`
+        `http://15.165.169.129/api/member/${member_pk}/my_page`
       );
       const json = await response.json();
+      console.log(json);
       setUserInfo(json.data);
       setBookmark(json.data.bookmarks);
+      setImage(json.data.profileImageUrl);
       console.log("JSON: " + JSON.stringify(bookmark));
     } catch (error) {
       console.log("error in get user info: " + error);
@@ -175,19 +156,25 @@ const MyPage = ({ navigation }) => {
 //     });
 //   };
 
+useEffect(() => {
+  getUserInfo();
+}, [member_pk,image]);
+
   return (
     <Container
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
-    >
+      }>
       <Profile>
-        {/* <Image source={{ uri: "splash" }} /> */}
         <UserImg>
-          <Fontisto name="person" size={30} color="black" />
+        {(image) ? (
+          <Image style={{width: 50, height: 50}} source={{ uri: image }} />
+        ) : (
+          <Fontisto name="person" size={30} color="black" />)}
         </UserImg>
-        <UserId>{userInfo.signInId}</UserId>
-        <Text onPress={() => navigation.navigate("EditInfo")}>정보 수정</Text>
+        {(userInfo) ? (<UserId>{userInfo.signInId}</UserId>) : <UserId>0</UserId>}
+        
+        <Text onPress={() => navigation.navigate("EditInfo",{member_pk})}>정보 수정</Text>
       </Profile>
 
       {/* <Joined>
