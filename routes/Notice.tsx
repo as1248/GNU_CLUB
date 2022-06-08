@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, View, TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
 import axios from "axios";
 

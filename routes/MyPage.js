@@ -1,19 +1,11 @@
 import styled from "styled-components/native";
 import React, { useEffect, useState } from "react";
-import {  View,
-  Text,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-  RefreshControl,
-} from "react-native";
+import { Text, Image, RefreshControl } from "react-native";
 import { Fontisto } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-
 const Container = styled.ScrollView.attrs(() => ({
   contentContainerStyle: {
-    // alignItems: "center",
   },
 }))`
   padding: 0% 5%;
@@ -30,8 +22,6 @@ const Profile = styled.View`
 `;
 
 const UserImg = styled.View`
-  // margin-left: -15%;
-  //   border: ;
 `;
 
 const UserId = styled.Text`
@@ -42,12 +32,10 @@ const UserId = styled.Text`
 
 const BookmarkList = styled.View`
   padding: 5%;
-  //   margin: 10% 0;
 `;
 
 const BookmarkContainer = styled.View`
   background-color: #38aeea;
-  
   border-radius: 10;
   margin-bottom: 5%;
   padding-left: 5%;
@@ -81,6 +69,7 @@ const ClubNameText = styled.Text`
   color: #4b4b4b;
 `;
 
+// 마이페이지 네비게이션
 const MyPage = ({ navigation }) => {
   const [image, setImage] = useState(null);
   const [member_pk, setMemberPk] = useState(0);
@@ -96,6 +85,7 @@ const MyPage = ({ navigation }) => {
       bookmarkName: "",
     },
   ]);
+  
   //새로고침
   const [refreshing, setRefreshing] = React.useState(false);
   const onRefresh = async () => {
