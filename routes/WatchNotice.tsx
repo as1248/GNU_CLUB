@@ -118,6 +118,7 @@ const WatchNotice = (noticePk:any) => {
 
     const callApi = async() => {
         try{
+            setUserType(noticePk.route.params.userType);
             const response = await axios.get(`http://15.165.169.129/api/club/notice/${noticePk.route.params.noticePk}?member_pk=${noticePk.route.params.memberPk}`);
             setNotice(response.data.data);
             loadLike(response);
@@ -172,11 +173,6 @@ const WatchNotice = (noticePk:any) => {
         }
     }
     useEffect(() => {callApi()},[notice]);
-    if(userType == ''){
-        AsyncStorage.getItem('userType.userType', (err, result) => {
-            setUserType(result); // 유저 타입 출력
-        });
-    }
     return (
         <View>
             {loading ? (<View>

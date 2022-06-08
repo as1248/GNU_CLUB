@@ -83,7 +83,7 @@ const Timeline = ({navigation, route}) => {
             <List>
                 {timelineList.reverse().map((timeline:any,index:number)=>{
                     return(
-                    <Posted onPress={() => navigation.navigate('WatchTimeline',{timelinePk: timeline.timelinePk, memberPk: member_pk})} key={index}>
+                    <Posted onPress={() => navigation.navigate('WatchTimeline',{timelinePk: timeline.timelinePk, memberPk: member_pk, userType})} key={index}>
                         <Title>{timeline.title}</Title>
                     </Posted>
                     );
