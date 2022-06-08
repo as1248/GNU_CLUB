@@ -177,7 +177,6 @@ const WatchNotice = (noticePk:any) => {
             setUserType(result); // 유저 타입 출력
         });
     }
-    console.log(noticePk);
     return (
         <View>
             {loading ? (<View>
@@ -246,10 +245,12 @@ const WatchNotice = (noticePk:any) => {
                             <Id>{notice.comments[index].userId}</Id>
                             <CommentDetail>{notice.comments[index].comment}</CommentDetail>
                         </Content>
-                        
-                        <DelBtn onPress={()=>DeleteComment(notice.comments[index].commentPk)}>
+                        {(noticePk.route.params.memberPk == notice.comments[index].memberPk) ? (
+                            <DelBtn onPress={()=>DeleteComment(notice.comments[index].commentPk)}>
                             <Del>X</Del>
                         </DelBtn>
+                        ) : (<View></View>)}
+                        
                     </Comment>
                     );
                 })}

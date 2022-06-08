@@ -245,9 +245,11 @@ const WatchTimeline = (timelinePk:any) => {
                             <Id>{timeline.comments[index].userId}</Id>
                             <CommentDetail>{timeline.comments[index].comment}</CommentDetail>
                         </Content>
-                        <DelBtn onPress={()=>DeleteComment(timeline.comments[index].commentPk)}>
+                        {(timelinePk.route.params.memberPk == timeline.comments[index].commentPk) ? (
+                            <DelBtn onPress={()=>DeleteComment(timeline.comments[index].commentPk)}>
                             <Del>X</Del>
                         </DelBtn>
+                        ) : (<View></View>)}
                     </Comment>
                     );
                 })}
