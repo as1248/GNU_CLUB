@@ -9,7 +9,7 @@ const Main = styled.View`
   display: flex;
   align-items: flex-start;
   margin-top: 45%;
-  margin-left: 5%;
+  margin-left: 10%;
 `;
 
 const ManagerLogin = ({ navigation }) => {
@@ -58,14 +58,14 @@ const ManagerLogin = ({ navigation }) => {
 
   return (
     <Main>
-      <Text style={{fontSize: 40, marginBottom: "5%"}}> 관리자 로그인</Text>
+      <Text style={{fontSize: 40, marginBottom: "5%", marginLeft: "-3%"}}> 관리자 로그인</Text>
       <View style={{flexDirection:"row", marginleft : 100}}>
       <Ionicons name="person-outline" size={40} color="black" />
-      <TextInput style={{marginBottom: "4%"}} placeholder="ID" fontSize={30} onChangeText={(text) => setId(text)} /> 
+      <TextInput  style={{ marginBottom: "4%", width: "80%" }} placeholder="ID" fontSize={30} onChangeText={(text) => setId(text)} /> 
         </View>
       <View style={{flexDirection:"row"}}>
         <MaterialCommunityIcons name="key" size={40} color="black" />
-      <TextInput style={{marginBottom: "4%"}} placeholder="비밀번호" fontSize={30} onChangeText={(text) => setPw(text)} />
+      <TextInput  style={{ marginBottom: "4%", width: "80%" }} placeholder="비밀번호" fontSize={30} onChangeText={(text) => setPw(text)} />
       </View>
 
       <TouchableOpacity style={styles.buttons} onPress={requestManagerLogin}>
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
       marginBottom: "5%"
   },
   buttons: {
-      borderRadius: 10, backgroundColor: "skyblue", width: 310, height: 50, justifyContent: "center", alignItems: "center" 
+      borderRadius: 10, backgroundColor: "skyblue", width: 290, height: 50, justifyContent: "center", alignItems: "center" 
   },
   flowDirection: {
       flexDirection: "row"

@@ -5,6 +5,7 @@ import { Text, View } from "react-native";
 
 const Container = styled.ScrollView`
   padding-top: 5%;
+  // padding-bottom: 20%;
 `;
 
 const List = styled.View`
