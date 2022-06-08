@@ -8,12 +8,15 @@ import {
   TextInput,
   Alert,
   RefreshControl,
+  StyleSheet,
 } from "react-native";
+import axios from "axios";
 import Modal from "react-native-modal";
 import styled from "styled-components/native";
 import Loader from "../components/Loader";
 import { CheckedBox, UncheckedBox } from "../components/Icon";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as ImagePicker from "expo-image-picker";
 
 const Container = styled.ScrollView.attrs(() => ({
   contentContainerStyle: {
@@ -107,6 +110,9 @@ const IntroducingText = styled.Text`
   font-size: 20px;
 `;
 
+const ImgBox = styled.View`
+`;
+
 const Club = (props) => {
   const [loading, setLoading] = useState(true);
   const [clubData, setClubData] = useState({
@@ -121,6 +127,7 @@ const Club = (props) => {
   const clubPk = props.route.params.clubPk;
   const [member_pk, setMemberPk] = useState(0);
   const [whereCheckIn, setWhereCheckIn] = useState(null);
+  const [image, setImage] = useState(null);
 
   //새로고침
   const [refreshing, setRefreshing] = React.useState(false);
@@ -224,6 +231,48 @@ const Club = (props) => {
     getIsCheckIn();
   }, [whereCheckIn]);
 
+  // 동아리 대표사진 수정
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+    setImage(result.uri);
+    callApi();
+  };
+
+  const callApi = async () => {
+    try {
+      const formData = new FormData();
+      if (image) {
+        formData.append("image", {
+          uri: image,
+          name: image.split("/").pop(),
+          type: "image/png",
+        });
+        console.log("클럽이미지는 있네요");
+      } else {
+        formData.append("image", null);
+        console.log("image is null");
+      }
+      const response = await axios({
+        method: "put",
+        url: `http://15.165.169.129/api/club/${clubPk}/background_image`,
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Accept: "*/*",
+        },
+      });
+      console.log(response.data.data);
+      console.log("API 요청이 됐네요");
+    } catch (error) {
+      console.log("error in callAPI : " + error);
+    }
+  };
+
   return loading ? (
     <Loader />
   ) : (
@@ -233,7 +282,18 @@ const Club = (props) => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        <ClubImage source={require("../assets/freeImages.png")} />
+        <TouchableOpacity style={styles.Btn} onPress={pickImage}>
+          <Text style={{ fontSize: 15, color: "white" }}>
+            동아리 대표사진 수정
+          </Text>
+        </TouchableOpacity>
+
+        {/* <ClubImage source={require("../assets/freeImages.png")} /> */}
+        <ImgBox>
+          <Image
+            source={{ width: 300, height: 300, uri: `${clubData.data.backgroundImgUrl}` }}
+          />
+        </ImgBox>
 
         <VContent>
           <VCenter>
@@ -342,5 +402,16 @@ const Club = (props) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  Btn: {
+    borderRadius: 10,
+    backgroundColor: "skyblue",
+    width: 150,
+    height: 30,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
 
 export default Club;
