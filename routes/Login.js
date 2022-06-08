@@ -124,7 +124,7 @@ const Login = ({ navigation }) => {
         }}
         onPress={() => navigation.navigate("SignIn")}
       >
-        <Text style={{ fontSize: 20, borderColor: "" }}>회원가입</Text>
+        <Text style={{ fontSize: 20 }}>회원가입</Text>
       </TouchableOpacity>
       <MBox>
         <ManagerLoginBtn onPress={() => navigation.navigate("ManagerLogin")}>
