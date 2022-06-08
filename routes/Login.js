@@ -27,13 +27,10 @@ const MBox = styled.View`
 `;
 // coms
 const ManagerLoginBtn = styled.TouchableOpacity`
-  border-radius: 10;
-  // background-color: skyblue;
   width: 50%;
   height: 100%;
   justify-content: center;
   align-items: center;
-  // border: ;
   opacity: 0.5;
 `;
 
@@ -141,7 +138,7 @@ const styles = StyleSheet.create({
     marginBottom: "5%",
   },
   buttons: {
-    borderRadius: 10,
+    borderRadius: "10px",
     backgroundColor: "skyblue",
     width: 290,
     height: 50,
