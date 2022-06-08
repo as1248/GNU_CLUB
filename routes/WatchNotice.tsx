@@ -101,6 +101,10 @@ const Del = styled.Text`
     font-size: 20px;
     font-weight: 900;
 `
+const ImgBox = styled.View`
+    margin-left: 10%;
+    margin-bottom: 20%;
+`;
 
 const WatchNotice = (noticePk:any) => {
     const [notice,setNotice] = useState<any>();
@@ -186,7 +190,9 @@ const WatchNotice = (noticePk:any) => {
                     </DelPost>) : (<View></View>)
                 }
                 <Detail>{notice.content}</Detail>
-                <Image source={{ width:100, height:100, uri:`${notice.imageUrl}`,}}/>
+                <ImgBox>
+                    <Image source={{ width:200, height:200, uri:`${notice.imageUrl}`}}/>
+                </ImgBox>
                 <Counting>
                     <Like onPress={() => {
                         setLike(!like);

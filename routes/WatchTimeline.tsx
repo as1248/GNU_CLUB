@@ -102,6 +102,11 @@ const Del = styled.Text`
     font-weight: 900;
 `
 
+const ImgBox = styled.View`
+    margin-left: 10%;
+    margin-bottom: 20%;
+`;
+
 const WatchTimeline = (timelinePk:any) => {
     const [timeline,setTimeline] = useState<any>();
     const [loading,setLoading] = useState(true);
@@ -186,7 +191,9 @@ const WatchTimeline = (timelinePk:any) => {
                     </DelPost>) : (<View></View>)
                 }
                 <Detail>{timeline.content}</Detail>
-                <Image source={{uri:`${timeline.imageUrl}`}}/>
+                <ImgBox>
+                    <Image source={{ width:200, height:200, uri:`${timeline.imageUrl}`}}/>
+                </ImgBox>
                 <Counting>
                     <Like onPress={() => {
                         setLike(!like);
