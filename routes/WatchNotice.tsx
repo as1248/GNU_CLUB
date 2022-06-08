@@ -215,6 +215,7 @@ const WatchNotice = (noticePk:any) => {
                 <AddComment>
                     <CommentInput>
                         <TextInput 
+                        placeholder='comment'
                         value={comment}
                         maxLength={300}
                         onChangeText={(event) => {
