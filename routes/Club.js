@@ -310,10 +310,10 @@ const Club = (props) => {
             <Title>{clubData.data.clubName}</Title>
           </VCenter>
           <ClubInfo>
-            <SpaceBetween>
+            {/* <SpaceBetween>
               <ContentText>동아리 총 인원 :</ContentText>
               <ContentText>{clubData.data.totalMemberCnt}</ContentText>
-            </SpaceBetween>
+            </SpaceBetween> */}
             <SpaceBetween>
               <ContentText>동아리방 현재 인원 :</ContentText>
               <ContentText>{clubData.data.currentMemberCnt}</ContentText>
