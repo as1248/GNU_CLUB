@@ -208,7 +208,7 @@ const MyPage = ({ navigation }) => {
               <List key={key}>
                 <ClubName
                   onPress={() =>
-                    navigation.navigate("Club", { clubPk: club.bookmarkPK })
+                    navigation.navigate("Club", { clubPk: club.clubPk })
                   }
                 >
                   <ClubNameText>{club.bookmarkName}</ClubNameText>
