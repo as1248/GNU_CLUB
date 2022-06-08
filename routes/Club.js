@@ -193,7 +193,7 @@ const Club = (props) => {
     if (whereCheckIn != null && whereCheckIn != clubPk) {
       alert("이미 다른 동아리방에 체크인 되어있습니다.");
     } else {
-      if (clubCurrentMemberCnt >= 8) {
+      if (clubCurrentMemberCnt >= 8 && whereCheckIn != clubPk) {
         alert("현재 동아리방 인원이 최대입니다.");
       } else {
         try {
