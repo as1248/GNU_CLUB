@@ -150,7 +150,6 @@ const WatchNotice = (noticePk:any) => {
                 "comment": comment,
             })                
         });
-            console.log(response);
         }catch(error){
             console.log(error.response.data);
         }
@@ -228,6 +227,7 @@ const WatchNotice = (noticePk:any) => {
                             alert('내용을 입력하세요');
                         }else{
                             await commentPost();
+                            alert("댓글이 게시되었습니다");
                             setComment('');
                         }}}/>
                 </AddComment>

@@ -141,7 +141,7 @@ const WatchTimeline = (timelinePk:any) => {
     }
     const commentPost = async() => {
         try{
-            const response = await fetch(`http://15.165.169.129/api/comment/timeline?member_pk=${timelinePk.route.params.memberPk}&timeline_pk=${timelinePk.route.params.timelinePk}`, {
+            await fetch(`http://15.165.169.129/api/comment/timeline?member_pk=${timelinePk.route.params.memberPk}&timeline_pk=${timelinePk.route.params.timelinePk}`, {
             method: "POST", 
             headers: {
                 "Content-Type": "application/json"
@@ -150,7 +150,6 @@ const WatchTimeline = (timelinePk:any) => {
                 "comment": comment,
             })                
         });
-            console.log(response);
         }catch(error){
             console.log(error.response.data);
         }
@@ -228,6 +227,7 @@ const WatchTimeline = (timelinePk:any) => {
                             alert('내용을 입력하세요');
                         }else{
                             await commentPost();
+                            alert("댓글이 게시되었습니다");
                             setComment('');
                         }}}/>
                 </AddComment>
