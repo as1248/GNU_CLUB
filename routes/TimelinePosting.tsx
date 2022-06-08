@@ -51,7 +51,7 @@ const BtnText = styled.Text`
 `;
 
 const TimelinePosting = (clubPk:any) => {
-    const [image, setImage] = useState();
+    const [image, setImage] = useState(null);
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [titleLen,setTitleLen] = useState(0);
@@ -69,7 +69,11 @@ const TimelinePosting = (clubPk:any) => {
     const callApi = async() => {
         try{
             const formData = new FormData();
-            formData.append('image',null);
+            if(image){
+                formData.append('image', {uri: image, name: image.split('/').pop(), type: 'image/png'});
+            }else{
+                formData.append('image', null);
+            }
             formData.append('dto', {'string': JSON.stringify({title, content}), type: 'application/json'});
             await axios({
                 method: 'post',
