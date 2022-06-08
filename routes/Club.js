@@ -119,6 +119,7 @@ const Club = (props) => {
   const [checkIn, setCheckIn] = useState(false);
   const [ModalVisible, setModal] = useState(false);
   const clubPk = props.route.params.clubPk;
+  const [member_pk,setMemberPk] = useState(0);
 
   //새로고침
   const [refreshing, setRefreshing] = React.useState(false);
@@ -127,17 +128,16 @@ const Club = (props) => {
     await getClubData();
     setRefreshing(false);
   };
-  let member_pk;
   // 클럽 데이터 가져오기
   const getClubData = async () => {
     try {
-      member_pk = await AsyncStorage.getItem("pk");
+      setMemberPk(await AsyncStorage.getItem("pk"));
       const response = await fetch(
         `http://15.165.169.129/api/club/${clubPk}?member_pk=${member_pk}`
       );
       const thisData = await response.json();
       setClubData(thisData);
-      console.log("clubData is : " + clubData);
+      console.log(member_pk);
     } catch (error) {
       console.log("error in get Club data: " + error);
     }
