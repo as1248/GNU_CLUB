@@ -54,9 +54,6 @@ const Notice = ({navigation, route}) => {
     const [userType,setUserType] = useState('');
     const callApi = async() => {
         try{
-            AsyncStorage.getItem('userType.userType', (err, result) => {
-                setUserType(result); // 유저 타입 출력
-            });
             const response = await axios.get(`http://15.165.169.129/api/club/${clubPk}/notices`);
             setNoticeList(response.data.data);
             setLoading(false);
@@ -64,8 +61,13 @@ const Notice = ({navigation, route}) => {
             console.log(error);
         };
     }
-    
+
     useEffect(() => {callApi()},[noticeList]);
+    if(userType == ''){
+        AsyncStorage.getItem('userType.userType', (err, result) => {
+            setUserType(result);
+        });
+    }
     return (
       <View>
           {loading ? (<View>

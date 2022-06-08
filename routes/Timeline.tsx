@@ -26,15 +26,16 @@ const List = styled.ScrollView`
 
 const Posted = styled.TouchableOpacity`
     width: 70%;
-    height: 50px;
-    margin-top: 10%;
-    border: 1px solid black;
+    height: 60px;
+    margin-top: 8%;
+    border: 1px solid rgba(0,0,0,0.3);
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
 `;
 const Title = styled.Text`
-    font-size: 20px;
+    font-size: 25px;
 `;
 
 const Posting = styled.Text`
@@ -53,9 +54,6 @@ const Timeline = ({navigation, route}) => {
     const [userType,setUserType] = useState('');
     const callApi = async() => {
         try{
-            AsyncStorage.getItem('userType.userType', (err, result) => {
-                setUserType(result); // 유저 타입 출력
-            });
             const response = await axios.get(`http://15.165.169.129/api/club/${clubPk}/timelines`);
             setTimelineList(response.data.data);
             setLoading(false);
@@ -65,6 +63,11 @@ const Timeline = ({navigation, route}) => {
     }
     
     useEffect(() => {callApi()},[timelineList]);
+    if(userType == ''){
+        AsyncStorage.getItem('userType.userType', (err, result) => {
+            setUserType(result); // 유저 타입 출력
+        });
+    }
     return (
       <View>
           {loading ? (<View>
@@ -76,7 +79,6 @@ const Timeline = ({navigation, route}) => {
                 {(userType == 'manager') ?
                     (<Posting onPress={() => navigation.navigate('TimelinePosting',{clubPk: clubPk})}>+</Posting>) : (<View></View>)
                 }
-                
             </Header>   
             <List>
                 {timelineList.reverse().map((timeline:any,index:number)=>{
