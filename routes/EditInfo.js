@@ -29,56 +29,101 @@ const EditInfo = () => {
     const [pwn, setPwn] = useState("");
     const [pwnc, setPwnc] = useState("");
     const [image, setImage] = useState(null);
+    const [memberPK, setMemberPK] = useState(null);
+    
 
+  // 프로필 이미지 가져오기
+  const getUserInfo = async () => {
+    // if (AsyncStorage.getItem("userType") === userType.userType) {
+    // }
+    try {
+      const memberPK = await AsyncStorage.getItem("pk");
+      console.log("멤버피케이는 : " + memberPK);
+
+      const response = await fetch(
+        `http://15.165.169.129/api/member/${memberPK}/my_page`
+      );
+      const json = await response.json();
+      setImage(json.data.profileImageUrl);
+    } catch (error) {
+      console.log("error in get user info: " + error);
+    }
+  };
+
+    // 프로필 이미지 변경
+    // const pickImage = async () => {
+    //     let result = await ImagePicker.launchImageLibraryAsync({
+    //       mediaTypes: ImagePicker.MediaTypeOptions.All,
+    //       allowsEditing: true,
+    //       aspect: [1,1],
+    //       quality: 1,
+    //     });
+    //     setImage(result.uri);
+    //     callApi();
+    //     };
+
+    //     const callApi = async() => {
+    //         try{
+    //             const formData = new FormData();
+                
+    //             formData.append('image', {uri: image, name: image.split('/').pop(), type: 'image/png'});
+                
+    //             await axios({
+    //                 method: 'put',
+    //                 url: `http://15.165.169.129/api/member/${memberPK}/profile_image`,
+    //                 data: formData,
+    //                 headers: {
+    //                     'Content-Type': 'multipart/form-data',
+    //                     'Accept': '*/*'
+    //                 }
+    //             });
+    //             }catch(error){
+    //             console.log(error.response.data);
+    //         }
+    //     }
+    //동아리 대표사진 수정
     const pickImage = async () => {
-        let result:any = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.All,
-          allowsEditing: true,
-          aspect: [1,1],
-          quality: 1,
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 1,
+      });
+      setImage(result.uri);
+      console.log(result);
+      callApi();
+    };
+  
+    const callApi = async () => {
+        setMemberPK(await AsyncStorage.getItem("pk"));
+      try {
+        const formData = new FormData();
+        if (image) {
+          formData.append("image", {
+            uri: image,
+            name: image.split("/").pop(),
+            type: "image/png",
+          });
+          console.log("클럽이미지는 있네요");
+        } else {
+          formData.append("image", null);
+          console.log("image is null");
+        }
+        const response = await axios({
+          method: "put",
+          url: `http://15.165.169.129/api/member/${memberPK}/profile_image`,
+          data: formData,
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Accept: "*/*",
+          },
         });
-        setImage(result.uri);
-        // const setImage = async() => {
-        //     try{
-        //         const formData = new FormData();
-                
-        //         formData.append('image', {uri: image, name: image.split('/').pop(), type: 'image/png'});
-                
-        //         await axios({
-        //             method: 'get',
-        //             url: `http://15.165.169.129/api/member/${memberPK}/my_page`,
-        //             data: formData,
-        //             headers: {
-        //                 'Content-Type': 'multipart/form-data',
-        //                 'Accept': '*/*'
-        //             }
-        //         });
-        //         }catch(error){
-        //         console.log(error.response.data);
-        //     }
-        // }
-        callApi();
-        }
-        const callApi = async() => {
-            try{
-                const formData = new FormData();
-                
-                formData.append('image', {uri: image, name: image.split('/').pop(), type: 'image/png'});
-                
-                await axios({
-                    method: 'put',
-                    url: `http://15.165.169.129/api/member/{memberPK}/profile_image`,
-                    data: formData,
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                        'Accept': '*/*'
-                    }
-                });
-                }catch(error){
-                console.log(error.response.data);
-            }
-        }
-        
+        console.log(response.data.data);
+        console.log("API 요청이 됐네요");
+      } catch (error) {
+        console.log("error in callAPI : " + error);
+      }
+    };
 
     const requestAlterpw = async () => {
         if (pw === ""){
