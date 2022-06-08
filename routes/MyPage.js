@@ -127,11 +127,9 @@ const MyPage = ({ navigation }) => {
         `http://15.165.169.129/api/member/${member_pk}/my_page`
       );
       const json = await response.json();
-      console.log(json);
       setUserInfo(json.data);
       setBookmark(json.data.bookmarks);
       setImage(json.data.profileImageUrl);
-      console.log("JSON: " + JSON.stringify(bookmark));
     } catch (error) {
       console.log("error in get user info: " + error);
     }
