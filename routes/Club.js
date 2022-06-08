@@ -119,7 +119,7 @@ const Club = (props) => {
   const [checkIn, setCheckIn] = useState(false);
   const [ModalVisible, setModal] = useState(false);
   const clubPk = props.route.params.clubPk;
-  const [member_pk,setMemberPk] = useState(0);
+  const [member_pk, setMemberPk] = useState(0);
 
   //새로고침
   const [refreshing, setRefreshing] = React.useState(false);
@@ -141,7 +141,6 @@ const Club = (props) => {
     } catch (error) {
       console.log("error in get Club data: " + error);
     }
-    
   };
 
   // 화면 들어올 때 실행
@@ -162,18 +161,23 @@ const Club = (props) => {
 
   // 체크 박스 클릭
   const clickCheckBox = async () => {
-    try {
-      const thisMemberPk = await AsyncStorage.getItem("pk");
-      const response = await fetch(
-        `http://15.165.169.129/api/member/${thisMemberPk}/check_in?club_pk=${clubPk}`,
-        {
-          method: "PUT",
-        }
-      );
-      const json = await response.json();
-      checkInTrue(json.data);
-    } catch (error) {
-      console.log("error in click check box: " + error);
+    let clubCurrentMemberCnt = clubData.data.currentMemberCnt;
+    if (clubCurrentMemberCnt >= 8) {
+      alert("현재 동아리방 인원이 최대입니다.");
+    } else {
+      try {
+        const thisMemberPk = await AsyncStorage.getItem("pk");
+        const response = await fetch(
+          `http://15.165.169.129/api/member/${thisMemberPk}/check_in?club_pk=${clubPk}`,
+          {
+            method: "PUT",
+          }
+        );
+        const json = await response.json();
+        checkInTrue(json.data);
+      } catch (error) {
+        console.log("error in click check box: " + error);
+      }
     }
   };
 
