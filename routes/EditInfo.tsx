@@ -118,9 +118,9 @@ const EditInfo = (props:any) => {
         <Main>
             <View style={{width: "100%", padding: "0%", marginTop: "30%", marginBottom: "5%", display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                 {(image) ? (
-                <Image style={{width: 100, height: 100}} source={{uri:image}} />
+                <Image style={{width: 200, height: 200, borderColor: "#38aeea", borderWidth: 8, borderRadius: 30}} source={{uri:image}} />
                 ) : (
-                <Image style={{width: 100, height: 100}} source={require('../assets/icon.png')} />)}
+                <Image style={{width: 200, height: 200, borderColor: "#38aeea", borderWidth: 8, borderRadius: 30}} source={require('../assets/icon.png')} />)}
                 
                 <TouchableOpacity style={styles.profileImgBtn} onPress={()=> pickImage()}>
                     <Text style={{fontSize: 20, color: "white"}}>프로필사진수정</Text>

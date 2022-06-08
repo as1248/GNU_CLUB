@@ -26,7 +26,7 @@ const Profile = styled.View`
   justify-content: center;
   padding: 0 20%;
   margin: 10% 0;
-  border: 1px solid black;
+  
 `;
 
 const UserImg = styled.View`
@@ -35,18 +35,20 @@ const UserImg = styled.View`
 `;
 
 const UserId = styled.Text`
-  margin-right: 20%;
+  margin-right: 10%
   font-size: 30px;
 `;
+
 
 const BookmarkList = styled.View`
   padding: 5%;
   //   margin: 10% 0;
-  border: 1px solid black;
 `;
+
 const BookmarkContainer = styled.View`
-  background-color: #ced1ce;
-  border: 1px solid black;
+  background-color: #38aeea;
+  
+  border-radius: 10;
   margin-bottom: 5%;
   padding-left: 5%;
 `;
@@ -58,7 +60,6 @@ const BookmarkTitle = styled.Text`
 `;
 
 const BookmarkContentContainer = styled.View`
-
 `;
 
 // const Bookmark = styled.TouchableOpacity`
@@ -166,11 +167,11 @@ useEffect(() => {
       <Profile>
         <UserImg>
         {(image) ? (
-          <Image style={{width: 50, height: 50}} source={{ uri: image }} />
+          <Image style={{width: 100, height: 100, borderColor: "#38aeea", borderWidth: 4, borderRadius: 10, marginTop: 5, marginBottom: 5}} source={{ uri: image }} />
         ) : (
           <Fontisto name="person" size={30} color="black" />)}
         </UserImg>
-        {(userInfo) ? (<UserId>{userInfo.signInId}</UserId>) : <UserId>0</UserId>}
+       <Text style={{fontSize: 30}}>ID : {(userInfo) ? (<UserId>{userInfo.signInId}</UserId>) : <UserId>0</UserId>}</Text> 
         
         <Text onPress={() => navigation.navigate("EditInfo",{member_pk})}>정보 수정</Text>
       </Profile>
