@@ -16,7 +16,12 @@ const Main = styled.View`
   align-items: flex-start;
   margin: 45% 10% ;
 `;
-
+const MBox = styled.View`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
 // coms
 const ManagerLoginBtn = styled.TouchableOpacity`
   border-radius: 10;
@@ -117,10 +122,12 @@ const Login = ({ navigation }) => {
       >
         <Text style={{ fontSize: 20 }}>회원가입</Text>
       </TouchableOpacity>
-      
+      <MBox>
       <ManagerLoginBtn onPress={() => navigation.navigate("ManagerLogin")}>
         <Text style={{ fontSize: 15 }}>관리자로그인</Text>
       </ManagerLoginBtn>
+      </MBox>
+      
     </Main>
   );
 };
