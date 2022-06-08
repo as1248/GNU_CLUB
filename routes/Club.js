@@ -120,12 +120,14 @@ const Club = (props) => {
   const [ModalVisible, setModal] = useState(false);
   const clubPk = props.route.params.clubPk;
   const [member_pk, setMemberPk] = useState(0);
+  const [whereCheckIn, setWhereCheckIn] = useState(null);
 
   //새로고침
   const [refreshing, setRefreshing] = React.useState(false);
   const onRefresh = async () => {
     setRefreshing(true);
     await getClubData();
+    await getIsCheckIn();
     setRefreshing(false);
   };
   // 클럽 데이터 가져오기
@@ -147,6 +149,7 @@ const Club = (props) => {
   useEffect(() => {
     getClubData();
     setLoading(false);
+    getIsCheckIn();
   }, []);
 
   // 현재 동방 인원수 +1
@@ -158,6 +161,26 @@ const Club = (props) => {
     setClubData(thisClubData);
     setCheckIn(isTrue);
   };
+
+  // 어떤 동아리 체크인했는지
+  const getIsCheckIn = async () => {
+    try {
+      const thisMemberPk = await AsyncStorage.getItem("pk");
+      const response = await fetch(
+        `http://15.165.169.129/api/member/${thisMemberPk}/check_in`
+      )
+      const json = await response.json();
+      setWhereCheckIn(json.data);
+      console.log("현재 체크인한 곳 : " + whereCheckIn);
+      console.log("클럽 피케이 : " + clubPk);
+      if (whereCheckIn == clubPk) {
+        setCheckIn(true);
+      }
+    } catch (error) {
+      console.log("error in get is checkin ? : " + error);
+    }
+  }
+
 
   // 체크 박스 클릭
   const clickCheckBox = async () => {
@@ -195,6 +218,10 @@ const Club = (props) => {
     checkCheckbox();
   }, [checkIn]);
 
+  useEffect(() => {
+    getIsCheckIn();
+  }, [whereCheckIn]);
+  
   return loading ? (
     <Loader />
   ) : (
