@@ -244,7 +244,7 @@ const WatchTimeline = (timelinePk:any) => {
                     {timeline.comments.map((comment:any,index:number)=>{
                     return(
                     <Comment key={index}>
-                        <Image source={{ uri: null }} style={{ width: 40, height: 40 }} />
+                        <Image source={{ uri: timeline.comments[index].userProfileImgUrl }} style={{ width: 40, height: 40 }} />
                         <Content>
                             <Id>{timeline.comments[index].userId}</Id>
                             <CommentDetail>{timeline.comments[index].comment}</CommentDetail>

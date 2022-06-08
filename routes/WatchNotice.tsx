@@ -243,7 +243,7 @@ const WatchNotice = (noticePk:any) => {
                     {notice.comments.map((comment:any,index:number)=>{
                     return(
                     <Comment key={index}>
-                        <Image source={{ uri: null }} style={{ width: 40, height: 40 }} />
+                        <Image source={{ uri: notice.comments[index].userProfileImgUrl }} style={{ width: 40, height: 40 }} />
                         <Content>
                             <Id>{notice.comments[index].userId}</Id>
                             <CommentDetail>{notice.comments[index].comment}</CommentDetail>
