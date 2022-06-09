@@ -309,16 +309,16 @@ const Club = (props) => {
         <ImgBox>
           <Image
             style={{
-              width: 380,
-              height: 300,
+              width: 325,
+              height: 260,
               borderColor: "#38aeea",
               borderWidth: 10,
               borderRadius: 10,
               marginTop: 20,
             }}
             source={{
-              width: 300,
-              height: 300,
+              width: 325,
+              height: 260,
               borderColor: "#38aeea",
               borderWidth: 20,
               borderRadius: 10,
@@ -383,7 +383,7 @@ const Club = (props) => {
           <IntroducingText>{clubData.data.intro}</IntroducingText>
         </Introducing>
       </IntroducingContainer>
-      <Modal visible={ModalVisible}>
+      <Modal>
         <View
           style={{
             justifyContent: "center",
