@@ -110,8 +110,7 @@ const IntroducingText = styled.Text`
   font-size: 20px;
 `;
 
-const ImgBox = styled.View`
-`;
+const ImgBox = styled.View``;
 
 const Club = (props) => {
   const [loading, setLoading] = useState(true);
@@ -128,7 +127,7 @@ const Club = (props) => {
   const [member_pk, setMemberPk] = useState(0);
   const [whereCheckIn, setWhereCheckIn] = useState(null);
   const [image, setImage] = useState(null);
-  const [userType,setUserType] = useState('');
+  const [userType, setUserType] = useState("");
 
   //새로고침
   const [refreshing, setRefreshing] = React.useState(false);
@@ -232,6 +231,10 @@ const Club = (props) => {
     getIsCheckIn();
   }, [whereCheckIn]);
 
+  useEffect(() => {
+    getClubData();
+  }, [image]);
+
   // 동아리 대표사진 수정
 
   const pickImage = async () => {
@@ -241,7 +244,10 @@ const Club = (props) => {
       aspect: [1, 1],
       quality: 1,
     });
-    setImage(result.uri);
+    const uri = result.uri;
+    setImage(uri);
+    console.log("image : " + image);
+    console.log("result : " + result);
     callApi();
   };
 
@@ -275,11 +281,11 @@ const Club = (props) => {
     }
   };
 
-  if(userType == ''){
-    AsyncStorage.getItem('userType.userType', (err, result) => {
-        setUserType(result);
+  if (userType == "") {
+    AsyncStorage.getItem("userType.userType", (err, result) => {
+      setUserType(result);
     });
-}
+  }
   return loading ? (
     <Loader />
   ) : (
@@ -289,19 +295,35 @@ const Club = (props) => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-
-      {(userType == 'manager') ?
-        ( <TouchableOpacity style={styles.Btn} onPress={pickImage}>
+        {userType == "manager" ? (
+          <TouchableOpacity style={styles.Btn} onPress={pickImage}>
             <Text style={{ fontSize: 15, color: "white" }}>
               동아리 대표사진 수정
             </Text>
-          </TouchableOpacity>) : (<View></View>)
-      }
+          </TouchableOpacity>
+        ) : (
+          <View></View>
+        )}
 
         {/* <ClubImage source={require("../assets/freeImages.png")} /> */}
         <ImgBox>
-          <Image style={{width: 380, height: 300, borderColor: "#38aeea", borderWidth: 10, borderRadius: 10, marginTop: 20}}
-            source={{ width: 300, height: 300, borderColor: "#38aeea", borderWidth: 20, borderRadius: 10, uri: `${clubData.data.backgroundImgUrl}` }}
+          <Image
+            style={{
+              width: 380,
+              height: 300,
+              borderColor: "#38aeea",
+              borderWidth: 10,
+              borderRadius: 10,
+              marginTop: 20,
+            }}
+            source={{
+              width: 300,
+              height: 300,
+              borderColor: "#38aeea",
+              borderWidth: 20,
+              borderRadius: 10,
+              uri: `${clubData.data.backgroundImgUrl}`,
+            }}
           />
         </ImgBox>
 
@@ -369,7 +391,7 @@ const Club = (props) => {
             backgroundColor: "white",
             height: 200,
             borderWidth: "2px",
-            borderColor: "#38aeea"
+            borderColor: "#38aeea",
           }}
         >
           <View
